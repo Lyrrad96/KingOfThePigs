@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://nrsysmn67n01"]
+
+[node name="Trajectory" type="Node"]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Line" type="Line2D" parent="."]
+width = 4.0

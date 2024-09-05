@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://duf2ik4ebfren"]
+
+[node name="HintCanvasLayer" type="CanvasLayer"]
+
+[node name="HintLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

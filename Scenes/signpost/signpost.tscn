@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5i6f1jkrusmw"]
+
+[ext_resource type="Script" path="res://scenes/signpost/signpost.gd" id="1_a47jv"]
+[ext_resource type="Texture2D" uid="uid://cbvg85172o8rs" path="res://Sprites/14-TileSets/world_tileset.png" id="2_6c6f7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kp0ok"]
+size = Vector2(37, 31)
+
+[node name="Signpost" type="Area2D"]
+script = ExtResource("1_a47jv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_6c6f7")
+region_enabled = true
+region_rect = Rect2(128, 64, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kp0ok")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.00173611
+anchor_right = -0.00173611
+offset_left = -26.0
+offset_top = -18.0
+offset_right = 26.0
+offset_bottom = 5.0
+theme_override_font_sizes/font_size = 8
+metadata/_edit_use_anchors_ = true
