@@ -106,7 +106,7 @@ func die():
 func attack():
 	attacking = true
 	var overlapping_objects = attack_hitbox.get_overlapping_areas()
-	printt(overlapping_objects)
+	# printt(overlapping_objects)
 	for obj in overlapping_objects:
 		var _parent = obj.get_parent()
 		# _parent.attacked()

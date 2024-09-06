@@ -712,12 +712,6 @@ animations = [{
 radius = 7.0
 height = 20.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mumpx"]
-radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1gpk3"]
-radius = 6.0
-
 [sub_resource type="Animation" id="Animation_uxcbm"]
 loop_mode = 1
 tracks/0/type = "value"
@@ -759,7 +753,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("attackHitbox/attackCollision:disabled")
+tracks/3/path = NodePath("Node/attackHitbox/attackCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1035,6 +1029,12 @@ _data = {
 "world_tileset": SubResource("Animation_pk0vi")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_mumpx"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1gpk3"]
+radius = 6.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_sdgrw")
 
@@ -1055,21 +1055,9 @@ position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_628py")
 
 [node name="Hitbox" parent="." instance=ExtResource("12_73fgd")]
-visible = false
 position = Vector2(0, -10)
-
-[node name="attackHitbox" type="Area2D" parent="."]
-position = Vector2(-8, -10)
-
-[node name="attackCollision" type="CollisionShape2D" parent="attackHitbox"]
-shape = SubResource("CircleShape2D_mumpx")
-disabled = true
-
-[node name="damageHitbox" type="Area2D" parent="."]
-position = Vector2(0, -10)
-
-[node name="damageCollision" type="CollisionShape2D" parent="damageHitbox"]
-shape = SubResource("CircleShape2D_1gpk3")
+hp = 100
+damage = 20
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -1236,5 +1224,23 @@ script = ExtResource("11_k06mf")
 target_state = NodePath("../../IdleState")
 _operator = 2
 
-[connection signal="area_entered" from="attackHitbox" to="." method="_on_attack_hitbox_area_entered"]
-[connection signal="area_entered" from="damageHitbox" to="." method="_on_damage_hitbox_area_entered"]
+[node name="Node" type="Node" parent="."]
+
+[node name="attackHitbox" type="Area2D" parent="Node"]
+visible = false
+position = Vector2(-8, -10)
+
+[node name="attackCollision" type="CollisionShape2D" parent="Node/attackHitbox"]
+shape = SubResource("CircleShape2D_mumpx")
+disabled = true
+
+[node name="damageHitbox" type="Area2D" parent="Node"]
+visible = false
+position = Vector2(0, -10)
+
+[node name="damageCollision" type="CollisionShape2D" parent="Node/damageHitbox"]
+shape = SubResource("CircleShape2D_1gpk3")
+
+[connection signal="_damage_taken" from="Hitbox" to="." method="_on_hitbox__damage_taken"]
+[connection signal="area_entered" from="Node/attackHitbox" to="." method="_on_attack_hitbox_area_entered"]
+[connection signal="area_entered" from="Node/damageHitbox" to="." method="_on_damage_hitbox_area_entered"]

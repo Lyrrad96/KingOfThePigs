@@ -1,1 +1,14 @@
-res://Scenes/signpost/signpost.gd
+res://Scenes/Player/player.gd
+res://Scenes/world/GameManager.gd
+res://Scenes/colliders/Hitbox.gd
+res://Scenes/Player/player.tscn
+res://Scenes/world/world.tscn
+res://Scenes/pig/pig.tscn
+res://Scenes/King/king.tscn
+res://Scenes/colliders/hitbox.tscn
+res://Scenes/signpost/signpost.tscn
+res://Scenes/King/king.gd
+res://Scenes/pig/pig.gd
+res://addons/fsm-godot/scripts/transition.gd
+res://Scenes/health_bar/health_bar.tscn
+res://addons/split_ss/States/IdleState.gd
