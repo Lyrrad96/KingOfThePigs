@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://cn28ebtq1w4s3"]
 
-[node name="HealthBar" type="ColorRect"]
+[node name="HealthBar" type="ProgressBar"]
 offset_right = 100.0
-offset_bottom = 4.0
-color = Color(1, 0, 0, 1)
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 20.0
-offset_bottom = 4.0
-color = Color(0, 1, 0, 1)
+offset_bottom = 27.0
+value = 100.0

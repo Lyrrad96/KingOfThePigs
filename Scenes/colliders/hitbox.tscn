@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/colliders/Hitbox.gd" id="1_5qeey"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6vhab"]
-radius = 6.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_egi3u"]
 radius = 7.0
@@ -12,16 +12,22 @@ radius = 7.0
 script = ExtResource("1_5qeey")
 
 [node name="attackHitbox" type="Area2D" parent="."]
-position = Vector2(12, 0)
+position = Vector2(-13, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attackHitbox"]
-position = Vector2(-24, 0)
+[node name="attackCollision" type="CollisionShape2D" parent="attackHitbox"]
 shape = SubResource("CircleShape2D_6vhab")
 disabled = true
 
 [node name="damageHitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="damageHitbox"]
+[node name="damageCollision" type="CollisionShape2D" parent="damageHitbox"]
 shape = SubResource("CircleShape2D_egi3u")
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -54.0
+offset_top = -66.0
+offset_right = 54.0
+offset_bottom = -39.0
+
 [connection signal="area_entered" from="attackHitbox" to="." method="_on_attack_hitbox_area_entered"]
+[connection signal="area_entered" from="damageHitbox" to="." method="_on_damage_hitbox_area_entered"]
