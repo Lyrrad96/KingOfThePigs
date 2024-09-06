@@ -1,1 +1,13 @@
-res://Scenes/signpost/signpost.gd
+res://Scenes/Player/player.gd
+res://Scenes/colliders/node_2d.tscn
+res://Scenes/colliders/wallDetector.gd
+res://Scenes/King/king.gd
+res://variables.gd
+res://Scenes/King/king.tscn
+res://Scenes/world/world.tscn
+res://Scenes/Player/player.tscn
+res://Scenes/pig/pig.tscn
+res://Scenes/colliders/hitbox.tscn
+res://Scenes/signpost/signpost.tscn
+res://Scenes/colliders/wallDetector.tscn
+res://Scenes/colliders/Hitbox.gd

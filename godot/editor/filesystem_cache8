@@ -1,5 +1,5 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1725554058
+::res://::1725589792
 export_presets.cfg::TextFile::-1::1722675716::0::1::::<><>::
 icon.svg::CompressedTexture2D::1319661845860886690::1719244719::1723776577::1::::<><>::
 variables.gd::GDScript::-1::1722180199::0::1::::DebugVariables<>Resource<>::
@@ -50,14 +50,17 @@ blank.png::CompressedTexture2D::2461736905036654203::1722778996::1723776578::1::
 CustomTileMap.gd::GDScript::-1::1723998097::0::1::::CustomTileMap<>TileMap<>::
 plugin.cfg::TextFile::-1::1722439939::0::1::::<><>::
 tilereplacer.gd::GDScript::-1::1722751638::0::1::::<>EditorPlugin<>::
+::res://KingOfThePigs/::1725555877
 ::res://resources/::1721752202
 debug_variables.tres::Resource/Resource::-1::1721145572::0::1::::<><>::res://variables.gd
 ::res://Scenes/::1725503077
 ::res://Scenes/box/::1723085302
 box.tscn::PackedScene::6107489907903221838::1723085302::0::1::::<><>::uid://c8x1n1ybhf5s7::::res://Sprites/08-Box/Idle.png
-::res://Scenes/colliders/::1725553571
+::res://Scenes/colliders/::1725590191
 Hitbox.gd::GDScript::-1::1725504006::0::1::::<>Node<>::
 hitbox.tscn::PackedScene::887163179448287285::1725553571::0::1::::<><>::res://Scenes/colliders/Hitbox.gd
+node_2d.tscn::PackedScene::3922957627812822411::1725590238::0::1::::<><>::res://Scenes/colliders/wallDetector.gd
+wallDetector.gd::GDScript::-1::1725590191::0::1::::<>Node2D<>::
 ::res://Scenes/health_bar/::1723085302
 health_bar.tscn::PackedScene::5743045420614394372::1723085302::0::1::::<><>::
 ::res://Scenes/King/::1725553571
@@ -66,8 +69,8 @@ king.tscn::PackedScene::744892480358156680::1725553571::0::1::::<><>::res://Scen
 ::res://Scenes/pig/::1725553570
 pig.gd::GDScript::-1::1725504754::0::1::::<>CharacterBody2D<>::
 pig.tscn::PackedScene::1900779306180741948::1725553570::0::1::::<><>::res://Scenes/pig/pig.gd<>uid://b5tmi7n26qr1x::::res://Sprites/03-Pig/Attack (34x28).png<>uid://dttw1mkebuyjf::::res://Sprites/03-Pig/Dead (34x28).png<>uid://cb8gtp6stgulm::::res://Sprites/03-Pig/Fall (34x28).png<>uid://dipfen3ab1gni::::res://Sprites/03-Pig/Ground (34x28).png<>uid://dt1nbqrvpwu0n::::res://Sprites/03-Pig/Hit (34x28).png<>res://addons/split_ss/AutoAnimatedSprite2D.gd<>uid://dgf8japfuhuck::::res://Sprites/03-Pig/Jump (34x28).png<>uid://mv0ph3g3w81n::::res://Scenes/colliders/hitbox.tscn<>uid://88sun7f0kng8::::res://Sprites/03-Pig/Idle (34x28).png<>res://addons/split_ss/States/AttackState.gd<>res://addons/fsm-godot/scripts/finite_state_machine.gd<>uid://cp0ka42apm8cb::::res://Sprites/03-Pig/Run (34x28).png<>res://addons/split_ss/States/DeadState.gd<>res://addons/split_ss/States/FallState.gd<>res://addons/split_ss/States/GroundState.gd<>res://addons/split_ss/States/HitState.gd<>res://addons/split_ss/States/IdleState.gd<>res://addons/split_ss/States/JumpState.gd<>res://addons/split_ss/States/RunState.gd
-::res://Scenes/Player/::1725553570
-player.gd::GDScript::-1::1725553569::0::1::::<>CharacterBody2D<>::
+::res://Scenes/Player/::1725590035
+player.gd::GDScript::-1::1725590035::0::1::::<>CharacterBody2D<>::
 player.tscn::PackedScene::1061820132091665543::1725553570::0::1::::<><>::uid://bo1t5y77qvh8y::::res://Sprites/02-King Pig/Attack (38x28).png<>res://Scenes/Player/player.gd<>uid://c71105f14cxo8::::res://Sprites/02-King Pig/Idle (38x28).png<>uid://ccw1mqad3pidk::::res://Sprites/02-King Pig/Jump (38x28).png<>uid://ds6jenjxuruin::::res://Sprites/02-King Pig/Dead (38x28).png<>uid://dg88plsoit8ue::::res://Sprites/02-King Pig/Hit (38x28).png<>uid://bmt445abwowyi::::res://Sprites/02-King Pig/Fall (38x28).png<>uid://kc85gxeyvutu::::res://Sprites/02-King Pig/Run (38x28).png<>uid://flu5yrtubt3q::::res://Sprites/02-King Pig/Ground (38x28).png<>uid://nrsysmn67n01::::res://Scenes/world/trajectory.tscn<>res://addons/fsm-godot/scripts/finite_state_machine.gd<>uid://cyo4df4ttjumy::::res://Sprites/02-King Pig/world_tileset.png<>res://addons/fsm-godot/scripts/transition.gd<>res://addons/split_ss/AutoAnimatedSprite2D.gd<>uid://mv0ph3g3w81n::::res://Scenes/colliders/hitbox.tscn<>res://addons/split_ss/States/AttackState.gd<>res://addons/split_ss/States/DeadState.gd<>res://addons/split_ss/States/DieState.gd<>res://addons/split_ss/States/FallState.gd<>res://addons/split_ss/States/GroundState.gd<>res://addons/split_ss/States/HitState.gd<>res://addons/split_ss/States/IdleState.gd<>res://addons/split_ss/States/JumpState.gd<>res://addons/split_ss/States/RunState.gd
 ::res://Scenes/signpost/::1723776578
 hint_canvas_layer.tscn::PackedScene::8575015027982307281::1719156247::0::1::::<><>::

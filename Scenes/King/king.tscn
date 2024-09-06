@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ku3jgqye7gqq"]
+[gd_scene load_steps=50 format=3 uid="uid://ku3jgqye7gqq"]
 
 [ext_resource type="Script" path="res://Scenes/King/king.gd" id="1_hp43x"]
 [ext_resource type="Texture2D" uid="uid://dk647sanvdnbv" path="res://Sprites/01-King Human/Attack (78x58).png" id="2_pl02w"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dknf10de7or0t" path="res://Sprites/01-King Human/Hit (78x58).png" id="3_muqyy"]
 [ext_resource type="Texture2D" uid="uid://dk8tp7c1d6qxx" path="res://Sprites/01-King Human/Run (78x58).png" id="4_nqncc"]
 [ext_resource type="Texture2D" uid="uid://dvauagpj5jpj3" path="res://Sprites/01-King Human/Jump (78x58).png" id="5_7p7j3"]
+[ext_resource type="PackedScene" uid="uid://bv5kslca1cj60" path="res://Scenes/colliders/wallDetector.tscn" id="9_cb85r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1cx32"]
 atlas = ExtResource("2_pl02w")
@@ -529,12 +530,15 @@ libraries = {
 autoplay = "Idle"
 
 [node name="wallDetectorV" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(7, -9)
 rotation = 3.14159
 scale = Vector2(1, -1)
 target_position = Vector2(0, 15)
 
+visible = false
 [node name="wallDetectorH" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -10)
 rotation = 3.14159
 scale = Vector2(1, -1)
@@ -561,5 +565,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 value = 50.0
 fill_mode = 1
+
+[node name="wallDetector" parent="." instance=ExtResource("9_cb85r")]
 
 [connection signal="area_entered" from="attackHitbox" to="." method="_on_attack_hitbox_area_entered"]

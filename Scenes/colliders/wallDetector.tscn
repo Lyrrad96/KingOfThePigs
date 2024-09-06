@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv5kslca1cj60"]
+
+[ext_resource type="Script" path="res://Scenes/colliders/wallDetector.gd" id="1_u2boq"]
+
+[node name="wallDetector" type="Node2D"]
+script = ExtResource("1_u2boq")
+
+[node name="wallDetectorV" type="RayCast2D" parent="."]
+position = Vector2(7, -9)
+rotation = 3.14159
+scale = Vector2(1, -1)
+target_position = Vector2(0, 15)
+
+[node name="wallDetectorH" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+rotation = 3.14159
+scale = Vector2(1, -1)
+target_position = Vector2(-20, 5.05447e-05)
+
+[node name="wallDetectorJump" type="RayCast2D" parent="."]
+position = Vector2(25, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+target_position = Vector2(-0.000125885, -50)
