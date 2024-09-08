@@ -44,7 +44,7 @@ func _physics_process(delta):
 
 	var mustflip = chaseX()
 	var mustjump = chaseY()
-	
+
 	if wall_detector_h.is_colliding() and wall_detector_h.get_collider().name == "Player":
 		attack()
 	elif mustjump and wall_detector_jump.is_colliding() and is_on_floor():
@@ -106,7 +106,7 @@ func die():
 func attack():
 	attacking = true
 	var overlapping_objects = attack_hitbox.get_overlapping_areas()
-	printt(overlapping_objects)
+	# printt(overlapping_objects)
 	for obj in overlapping_objects:
 		var _parent = obj.get_parent()
 		# _parent.attacked()

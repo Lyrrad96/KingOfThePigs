@@ -10,5 +10,5 @@ func update(_delta: float):
 	var velocity = _par.velocity.y
 
 	anim_player.play('Fall')
-	printt('FallState', velocity)
+	# printt('FallState', velocity)
 	# anim_player.play('Ground')

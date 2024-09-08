@@ -7,5 +7,5 @@ func enter_state():
 func update(_delta: float):
 	super.update(_delta)
 
-	printt(_par.velocity.y)
+	# printt(_par.velocity.y)
 	anim_player.play('Jump')

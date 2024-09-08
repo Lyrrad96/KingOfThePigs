@@ -75,5 +75,5 @@ func string_to_bool(s: String) -> bool:
 
 # Function to get the opposite of the given OperatorType
 func get_opposite_operator(op: OperatorType) -> OperatorType:
-	# print(op)
+	print(op)
 	return (int(op) + 2) % 4

@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://2c0s7ovf0uqu"]
+[gd_scene load_steps=65 format=3 uid="uid://2c0s7ovf0uqu"]
 
 [ext_resource type="Script" path="res://Scenes/pig/pig.gd" id="1_bshvp"]
 [ext_resource type="Texture2D" uid="uid://b5tmi7n26qr1x" path="res://Sprites/03-Pig/Attack (34x28).png" id="1_ybphd"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://mv0ph3g3w81n" path="res://Scenes/colliders/hitbox.tscn" id="11_u5ule"]
 [ext_resource type="Texture2D" uid="uid://88sun7f0kng8" path="res://Sprites/03-Pig/Idle (34x28).png" id="11_vxpoy"]
 [ext_resource type="Script" path="res://addons/split_ss/States/AttackState.gd" id="12_5wiak"]
+[ext_resource type="PackedScene" uid="uid://bv5kslca1cj60" path="res://Scenes/colliders/wallDetector.tscn" id="12_doxwk"]
 [ext_resource type="Script" path="res://addons/fsm-godot/scripts/finite_state_machine.gd" id="12_ygfws"]
 [ext_resource type="Texture2D" uid="uid://cp0ka42apm8cb" path="res://Sprites/03-Pig/Run (34x28).png" id="13_e1m0v"]
 [ext_resource type="Script" path="res://addons/split_ss/States/DeadState.gd" id="13_lxu15"]
@@ -20,6 +21,7 @@
 [ext_resource type="Script" path="res://addons/split_ss/States/IdleState.gd" id="17_quvhv"]
 [ext_resource type="Script" path="res://addons/split_ss/States/JumpState.gd" id="18_of7a6"]
 [ext_resource type="Script" path="res://addons/split_ss/States/RunState.gd" id="19_cbv6i"]
+[ext_resource type="Script" path="res://addons/fsm-godot/scripts/transition.gd" id="20_g05jc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vvd46"]
 radius = 8.0
@@ -538,10 +540,14 @@ overwrite = true
 
 [node name="Hitbox" parent="." instance=ExtResource("11_u5ule")]
 position = Vector2(2, -8)
+hp = 200
+damage = 10
+
+[node name="wallDetector" parent="." instance=ExtResource("12_doxwk")]
 
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("12_ygfws")
-_initial_state = NodePath("IdleState")
+_initial_state = NodePath("RunState")
 
 [node name="AttackState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("12_5wiak")
@@ -558,16 +564,65 @@ script = ExtResource("15_pv780")
 [node name="HitState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("16_cq2cn")
 
-[node name="IdleState" type="Node" parent="FiniteStateMachine"]
+[node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("17_quvhv")
+new_child = NodePath("../RunState")
 
 [node name="JumpState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("18_of7a6")
 
-[node name="RunState" type="Node" parent="FiniteStateMachine"]
+[node name="RunState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("19_cbv6i")
+new_child = NodePath("../JumpState")
+
+[node name="ToAttackState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../AttackState")
+
+[node name="ToDeadState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../DeadState")
+
+[node name="ToFallState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../FallState")
+
+[node name="ToGroundState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../GroundState")
+
+[node name="ToHitState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../HitState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+
+[node name="ToJumpState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../JumpState")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ojfxy")
 }
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -20.0
+offset_top = -45.0
+offset_right = 20.0
+offset_bottom = -22.0
+
+[node name="wallDetectorV" type="RayCast2D" parent="."]
+position = Vector2(-7, -9)
+rotation = 3.14159
+scale = Vector2(1, -1)
+target_position = Vector2(0, 15)
+
+[node name="wallDetectorH" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+rotation = 3.14159
+scale = Vector2(-1, 1)
+target_position = Vector2(-20, 5.05447e-05)

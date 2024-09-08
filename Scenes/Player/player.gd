@@ -4,12 +4,13 @@ extends CharacterBody2D
 
 @onready var animation_player = $AnimationPlayer
 @onready var player_sprite = $playerSprite
-@onready var attack_hitbox = $attackHitbox
+# @onready var attack_hitbox = $attackHitbox
+@onready var hitbox = $Hitbox
+var hp = 100#hitbox.hp
+# var damage = hitbox.damage
 
 const SPEED = 160.0
 const JUMP_VELOCITY = -400.0
-
-var hp = 100
 
 @export var attacking = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -20,8 +21,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var state_machine = StateMachine.new()
 
 func _ready():
-	label.text = str(hp)
-	healthbar.max_value = hp
+	pass
+	# label.text = str(hp)
+	# healthbar.max_value = hp
 	#button.connect("pressed", update_trajectory)
 
 
@@ -33,14 +35,14 @@ var velocityY
 
 func _physics_process(delta):
 
-	healthbar.value = hp
+	# healthbar.value = hp
 
-	if(hp<=0):
-		label.text = 'hekkin died'
-		game_manager.dead = true
-		return
+	# if(hp<=0):
+	# 	label.text = 'hekkin died'
+	# 	game_manager.dead = true
+	# 	return
 	
-	label.text = str(hp)
+	# label.text = str(hp)
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -51,7 +53,9 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	
 	if Input.is_action_just_pressed("Attack"):
-		attack()
+		hitbox.attack(delta)
+		attacking = true
+		# attack()
 	
 	direction = Input.get_axis("Run Left", "Run Right")
 	
@@ -63,14 +67,20 @@ func _physics_process(delta):
 		# attack_hitbox.position.x *= -1
 		# scale = Vector2(-direction, 1)
 		# scale.y = abs(scale.y)
-		# if direction != scale.x:
-		# 	# flip(direction)
-		# 	# scale.x = direction
+		# if direction == scale.x:
+		# 	print(direction == scale.x)
+		# else:
+		# # 	# flip(direction)
+		# 	scale.x *= -1
+		# 	# scale.x = sign(velocity.x) * abs(scale.x)
+		# 	printt('flip', direction, scale.x)
+			# scale.x = scale.x * direction
 		# 	scale.x = scale.x * -1
-		# 	printt(scale)
+		# print(scale.x, '"', direction, '"', direction == scale.x, type_string(typeof(scale.x)), '"', type_string(typeof(direction)), '"', velocity.x)
 		player_sprite.flip_h = true if direction == 1 else false
+		hitbox.scale.x = -1 if direction == 1 else 1
 		# if player_sprite.flip_h and attack_hitbox.get_child(0).scale.x == 1:
-		attack_hitbox.position.x = 8 if direction == 1 else -8
+		# attack_hitbox.position.x = 8 if direction == 1 else -8
 		# elif direction<0 and scale.x == -1:
 		# 	scale.x = 1#abs(scale.x)
 		# 	player_sprite.flip_h = false
@@ -114,10 +124,10 @@ func _physics_process(delta):
 
 func attack():
 	attacking = true
-	var overlapping_objects = attack_hitbox.get_overlapping_areas()
-	#printt(overlapping_objects)
-	for obj in overlapping_objects:
-		var _parent = obj.get_parent()
+	# var overlapping_objects = attack_hitbox.get_overlapping_areas()
+	# #printt(overlapping_objects)
+	# for obj in overlapping_objects:
+	# 	var _parent = obj.get_parent()
 		#parent.attacked()
 		#parent.queue_free()
 		#printt(obj, parent)
@@ -131,14 +141,18 @@ func die():
 	#printt("died")
 	hit = true
 	animation_player.play("Hit")
-	hp-=10
+	# hp-=10
 
-func _on_attack_hitbox_area_entered(area):
-	printt("area: ", area, area.get_parent().name)
-	if area.name == "damageHitbox" and area.get_parent().name == "King":
-		area.get_parent().die()
+# func _on_attack_hitbox_area_entered(area):
+# 	printt("area: ", area, area.get_parent().name)
+# 	if area.name == "damageHitbox" and area.get_parent().name == "King":
+# 		area.get_parent().die()
 
 
-func _on_damage_hitbox_area_entered(area:Area2D):
-	printt("_on_damage_hitbox_area_entered: ", area, area.get_parent().name)
-	pass # Replace with function body.
+# func _on_damage_hitbox_area_entered(area:Area2D):
+# 	printt("_on_damage_hitbox_area_entered: ", area, area.get_parent().name)
+# 	pass # Replace with function body.
+
+
+# func _on_hitbox__damage_taken(hp: Variant) -> void:
+# 	pass # Replace with function body.

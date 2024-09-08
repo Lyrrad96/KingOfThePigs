@@ -69,7 +69,9 @@ func addTrans(object: Object):
 		# else:
 			child.new_child = object._initial_state
 			var childTrans = addchild(child)
-			var target = object._initial_state.find_children('To' + child.name)[0]
+			print(childTrans)
+			var target: Transition = object._initial_state.find_children('To' + child.name)[0]
+			print(target)
 			childTrans._variable_name = target._variable_name
 			childTrans._value = target._value
 			childTrans._value_type = target._value_type

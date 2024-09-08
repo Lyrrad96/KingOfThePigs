@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://pema07bvtcst"]
+[gd_scene load_steps=128 format=3 uid="uid://pema07bvtcst"]
 
 [ext_resource type="Texture2D" uid="uid://bo1t5y77qvh8y" path="res://Sprites/02-King Pig/Attack (38x28).png" id="1_s03l6"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_sdgrw"]
@@ -712,12 +712,6 @@ animations = [{
 radius = 7.0
 height = 20.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mumpx"]
-radius = 6.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1gpk3"]
-radius = 6.0
-
 [sub_resource type="Animation" id="Animation_uxcbm"]
 loop_mode = 1
 tracks/0/type = "value"
@@ -755,18 +749,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("attackHitbox/attackCollision:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.3, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_rg53e"]
@@ -1055,21 +1037,9 @@ position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_628py")
 
 [node name="Hitbox" parent="." instance=ExtResource("12_73fgd")]
-visible = false
 position = Vector2(0, -10)
-
-[node name="attackHitbox" type="Area2D" parent="."]
-position = Vector2(-8, -10)
-
-[node name="attackCollision" type="CollisionShape2D" parent="attackHitbox"]
-shape = SubResource("CircleShape2D_mumpx")
-disabled = true
-
-[node name="damageHitbox" type="Area2D" parent="."]
-position = Vector2(0, -10)
-
-[node name="damageCollision" type="CollisionShape2D" parent="damageHitbox"]
-shape = SubResource("CircleShape2D_1gpk3")
+hp = 100
+damage = 30
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
@@ -1190,9 +1160,10 @@ _value = "0"
 [node name="ToFallState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("11_k06mf")
 target_state = NodePath("../../FallState")
-_variable_name = "velocityY"
+_variable_name = "is_on_floor()"
 _operator = 2
-_value = "0"
+_value_type = 2
+_value = "false"
 
 [node name="ToGroundState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("11_k06mf")
@@ -1235,6 +1206,3 @@ new_child = NodePath("../IdleState")
 script = ExtResource("11_k06mf")
 target_state = NodePath("../../IdleState")
 _operator = 2
-
-[connection signal="area_entered" from="attackHitbox" to="." method="_on_attack_hitbox_area_entered"]
-[connection signal="area_entered" from="damageHitbox" to="." method="_on_damage_hitbox_area_entered"]
