@@ -3,9 +3,10 @@ class_name JumpState
 var anim_player
 func enter_state():
 	anim_player = _par.find_children('*', 'AnimationPlayer')[0]
-	# printt(_fsm, anim_player)
+	printt(_fsm, anim_player)
+
+var Jump_var
 func update(_delta: float):
 	super.update(_delta)
 
-	# printt(_par.velocity.y)
 	anim_player.play('Jump')

@@ -10,6 +10,9 @@ var save_path := "user://debug_variables.tres" # <- tres is Text RESource
 @export var debug_data: DebugVariables
 func load_debug() -> void:
 	debug_data = load(save_path)
+
+	if not debug_data:
+		debug_data = DebugVariables.new()
 	printt(debug_data, debug_data.isKingRunning)
 
 func save_debug(key, value) -> void:

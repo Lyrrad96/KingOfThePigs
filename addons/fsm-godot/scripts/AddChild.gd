@@ -69,9 +69,9 @@ func addTrans(object: Object):
 		# else:
 			child.new_child = object._initial_state
 			var childTrans = addchild(child)
-			print(childTrans)
+			printt('childTrans', childTrans)
 			var target: Transition = object._initial_state.find_children('To' + child.name)[0]
-			print(target)
+			printt('target: ', target, type_string(typeof(target)), Transition)
 			childTrans._variable_name = target._variable_name
 			childTrans._value = target._value
 			childTrans._value_type = target._value_type
@@ -80,7 +80,7 @@ func addTrans(object: Object):
 			printt('\n\nelse', child, child.new_child, children, object._initial_state.get_children(), object._initial_state.find_children('To' + child.name), child.name, target.get_opposite_operator(target._operator), target._operator)
 
 func newField(object: Object):
-	var header = CustomEditorInspectorCategory.new("Add Animations from folder")
+	var header = CustomEditorInspectorCategory.new("Add Child")
 
 	# Import button
 	var button := Button.new()
@@ -109,24 +109,25 @@ func newField(object: Object):
 
 func addTransBtn(object: Object):
 	var header = CustomEditorInspectorCategory.new("Add Animations from folder")
-	
-	# Import button
-	var animToFsm := Button.new()
-	animToFsm.text = "Add Trans"
-	animToFsm.get_minimum_size().y = 26
 
-	animToFsm.button_down.connect(addTrans.bind(object))
-	
+	# Import button
+
 	var initTrans := Button.new()
 	initTrans.text = "Add Init"
 	initTrans.get_minimum_size().y = 26
 
 	initTrans.button_down.connect(addTransInit.bind(object))
-	
-	var animToFsmstyle = StyleBoxFlat.new()
-	animToFsmstyle.bg_color = Color8(32, 37, 49)
-	animToFsm.set("custom_styles/normal", animToFsmstyle)
-	initTrans.set("custom_styles/normal", animToFsmstyle)
+
+	var trans := Button.new()
+	trans.text = "Add Trans"
+	trans.get_minimum_size().y = 26
+
+	trans.button_down.connect(addTrans.bind(object))
+
+	var transStyle = StyleBoxFlat.new()
+	transStyle.bg_color = Color8(32, 37, 49)
+	initTrans.set("custom_styles/normal", transStyle)
+	trans.set("custom_styles/normal", transStyle)
 
 	var container = VBoxContainer.new()
 	container.add_spacer(true)
@@ -138,7 +139,7 @@ func addTransBtn(object: Object):
 	# container.add_child(button)
 	
 	container.add_child(initTrans)
-	container.add_child(animToFsm)
+	container.add_child(trans)
 
 	# var exports = preload('./exports.gd').new()
 	# container.add_child(exports)

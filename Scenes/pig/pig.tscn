@@ -545,64 +545,6 @@ damage = 10
 
 [node name="wallDetector" parent="." instance=ExtResource("12_doxwk")]
 
-[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
-script = ExtResource("12_ygfws")
-_initial_state = NodePath("RunState")
-
-[node name="AttackState" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("12_5wiak")
-
-[node name="DeadState" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("13_lxu15")
-
-[node name="FallState" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("14_chxj8")
-
-[node name="GroundState" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("15_pv780")
-
-[node name="HitState" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("16_cq2cn")
-
-[node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
-script = ExtResource("17_quvhv")
-new_child = NodePath("../RunState")
-
-[node name="JumpState" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("18_of7a6")
-
-[node name="RunState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
-script = ExtResource("19_cbv6i")
-new_child = NodePath("../JumpState")
-
-[node name="ToAttackState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../AttackState")
-
-[node name="ToDeadState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../DeadState")
-
-[node name="ToFallState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../FallState")
-
-[node name="ToGroundState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../GroundState")
-
-[node name="ToHitState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../HitState")
-
-[node name="ToIdleState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../IdleState")
-
-[node name="ToJumpState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../JumpState")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ojfxy")
@@ -626,3 +568,71 @@ position = Vector2(0, -10)
 rotation = 3.14159
 scale = Vector2(-1, 1)
 target_position = Vector2(-20, 5.05447e-05)
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
+script = ExtResource("12_ygfws")
+_initial_state = NodePath("RunState")
+
+[node name="AttackState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("12_5wiak")
+new_child = NodePath("../RunState")
+
+[node name="DeadState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("13_lxu15")
+new_child = NodePath("../RunState")
+
+[node name="FallState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("14_chxj8")
+new_child = NodePath("../RunState")
+
+[node name="GroundState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("15_pv780")
+new_child = NodePath("../RunState")
+
+[node name="HitState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("16_cq2cn")
+new_child = NodePath("../RunState")
+
+[node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("17_quvhv")
+new_child = NodePath("../RunState")
+
+[node name="JumpState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("18_of7a6")
+new_child = NodePath("../RunState")
+
+[node name="RunState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("19_cbv6i")
+new_child = NodePath("../JumpState")
+
+[node name="ToAttackState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../AttackState")
+_variable_name = "attacking"
+
+[node name="ToDeadState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../DeadState")
+
+[node name="ToFallState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../FallState")
+_variable_name = "velocityY"
+_value_type = 1
+_value = "0"
+
+[node name="ToGroundState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../GroundState")
+
+[node name="ToHitState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../HitState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+
+[node name="ToJumpState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../JumpState")

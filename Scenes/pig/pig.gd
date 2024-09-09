@@ -43,13 +43,14 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	if wallDetector.turn:
-		print(direction)
-		# flip()
-		direction *= -1
-		scale.x*=-1
-		return
-		# wallDetector.turn = false
+
+	# if wallDetector.turn:
+	# 	print(direction)
+	# 	# flip()
+	# 	direction *= -1
+	# 	scale.x*=-1
+	# 	return
+	# 	# wallDetector.turn = false
 
 func flip():
 	# facing_right *= -1

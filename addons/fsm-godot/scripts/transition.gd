@@ -23,7 +23,19 @@ func check_transition() -> bool:
 	# printt('\ncheck_transition', _variable_name)
 	if not len(_variable_name):
 		return false
-	var parent_value = _parent_state._par.get(_variable_name)
+	var parent_value
+	if _variable_name.contains('.'):
+		var v_arr = _variable_name.split('.')
+		var p = _parent_state._par
+		var v
+		printt(v_arr, p, v)
+		for i in v_arr:
+			p = p.get(i)
+			printt(i, v)
+		parent_value = p
+	else:
+		parent_value = _parent_state._par.get(_variable_name)
+	printt('parent_value', _variable_name, parent_value, _parent_state._par)
 	# printt('check_transition', parent_value)
 	match _operator:
 		OperatorType.LESS_THAN:
