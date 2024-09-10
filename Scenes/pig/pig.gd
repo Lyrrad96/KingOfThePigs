@@ -37,10 +37,10 @@ func _physics_process(delta):
 	elif wall_detector_h.is_colliding() and wall_detector_h.get_collider().name == "Player":
 		flip()
 
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	# if direction:
+	# 	velocity.x = direction * SPEED
+	# else:
+	# 	velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 

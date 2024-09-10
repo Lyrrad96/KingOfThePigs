@@ -38,5 +38,6 @@ func _on_change():
 		return
 	reloading = true
 	var name = get_plugin_name()
+	print(name)
 	EditorInterface.call_deferred("set_plugin_enabled", name, false)
 	EditorInterface.call_deferred("set_plugin_enabled", name, true)

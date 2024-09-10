@@ -36,14 +36,14 @@ func _enter_tree():
 	# pluginAP = ConvertorA2D.new()
 	# add_inspector_plugin(pluginAP)
 
-# func _refresh(anim_player):
-# 	var interface = get_editor_interface()
+func _refresh(anim_player):
+	var interface = get_editor_interface()
 
-# 	# Hacky way to force the editor to deselect and reselect the animation panel, as the panel won't update until then
-# 	interface.inspect_object(interface.get_edited_scene_root())
-# 	interface.get_selection().clear()
-# 	await get_tree().create_timer(0.05).timeout
-# 	interface.inspect_object(anim_player)
+	# Hacky way to force the editor to deselect and reselect the animation panel, as the panel won't update until then
+	interface.inspect_object(interface.get_edited_scene_root())
+	interface.get_selection().clear()
+	await get_tree().create_timer(0.05).timeout
+	interface.inspect_object(anim_player)
 
 func _exit_tree():
 	printt('_exit_tree', NODE_NAME)

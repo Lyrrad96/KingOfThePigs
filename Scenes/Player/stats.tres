@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CharStats" load_steps=2 format=3 uid="uid://boegjrqn0cp1d"]
+
+[ext_resource type="Script" path="res://characterStats.gd" id="1_1d64k"]
+
+[resource]
+script = ExtResource("1_1d64k")
+hp = 0
+damage = 0

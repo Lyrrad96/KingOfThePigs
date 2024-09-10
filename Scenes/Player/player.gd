@@ -6,13 +6,16 @@ extends CharacterBody2D
 @onready var player_sprite = $playerSprite
 # @onready var attack_hitbox = $attackHitbox
 @onready var hitbox = $Hitbox
-var hp = 100#hitbox.hp
 # var damage = hitbox.damage
 
 const SPEED = 160.0
 const JUMP_VELOCITY = -400.0
 
+var hp: int
+var damage: int
 @export var attacking = false
+var stats = preload("res://Scenes/Player/stats.tres")
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -21,11 +24,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var state_machine = StateMachine.new()
 
 func _ready():
-	pass
+	hp = stats.hp
+	damage = stats.damage
 	# label.text = str(hp)
 	# healthbar.max_value = hp
 	#button.connect("pressed", update_trajectory)
-
 
 var direction = 1
 var facing_right = 1
@@ -34,6 +37,8 @@ var velocityX
 var velocityY
 
 func _physics_process(delta):
+	hp = stats.hp
+	damage = stats.damage
 
 	# healthbar.value = hp
 
@@ -41,7 +46,7 @@ func _physics_process(delta):
 	# 	label.text = 'hekkin died'
 	# 	game_manager.dead = true
 	# 	return
-	
+
 	# label.text = str(hp)
 	
 	# Add the gravity.

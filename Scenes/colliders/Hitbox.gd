@@ -2,14 +2,14 @@ extends Node
 
 signal _damage_taken(hp)
 
-@export var hp: int
-@export var damage: int
+
 @onready var attackCollision = $attackHitbox/attackCollision
 
 @onready var bar = $ProgressBar
-
+var hp
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	hp = get_parent().hp
 	bar.value = hp
 	bar.max_value = hp
 	print(hp, bar.max_value)

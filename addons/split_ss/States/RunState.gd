@@ -3,10 +3,12 @@ class_name RunState
 var anim_player
 func enter_state():
 	anim_player = _par.find_children('*', 'AnimationPlayer')[0]
-	printt(_fsm, anim_player)
+	# printt(_fsm, anim_player)
 
-var Run_var
+#var %var
 func update(_delta: float):
 	super.update(_delta)
+
+#	%var = %val
 
 	anim_player.play('Run')

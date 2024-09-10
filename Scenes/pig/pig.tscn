@@ -540,8 +540,6 @@ overwrite = true
 
 [node name="Hitbox" parent="." instance=ExtResource("11_u5ule")]
 position = Vector2(2, -8)
-hp = 200
-damage = 10
 
 [node name="wallDetector" parent="." instance=ExtResource("12_doxwk")]
 
