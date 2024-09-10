@@ -3,12 +3,15 @@ extends Node
 @onready var restart = $CanvasLayer/HBoxContainer/Restart
 @onready var king_speed = $CanvasLayer/HBoxContainer/kingSpeed
 @onready var camb = $CanvasLayer/HBoxContainer/cam
+@onready var zoom = $CanvasLayer/HBoxContainer/zoom
 
 @onready var player = $Player
 @onready var king = $King
 @onready var cam = $Player/Camera2D
 
 @onready var signpost = $Signs/Signpost
+
+@onready var game_manager = %GameManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +20,11 @@ func _ready():
 	camb.connect("pressed", cam_tog)
 	# king_speed.connect("pressed", king.toggle_speed)
 	king_speed.text = 'K run ' + str(king.ikr)
+
+	zoom.connect("pressed", zoom_tog)
+	var z = game_manager.debug_data['zoom']
+	cam.zoom = Vector2(z, z)
+	zoom.text = str(cam.zoom.x) + 'x'
 
 	# signpost.find_child("Label", true).text = "z to attack"
 
@@ -34,8 +42,14 @@ func cam_tog():
 		cam_f = 'player'
 		printt('king', player, king)
 
+func zoom_tog():
+	# cam.zoom = Vector2(2, 2) if cam.zoom == Vector2(2, 2) else Vector2(4, 4)
+	cam.zoom = Vector2(2, 2) if cam.zoom == Vector2(4, 4) else Vector2(4, 4)
+	zoom.text = str(cam.zoom.x) + 'x'
+	game_manager.save_debug('zoom', cam.zoom.x)
+
 func set_stylebox_color():
-	
+
 	king.toggle_speed()
 	king_speed.text = 'K run ' + str(king.ikr)
 

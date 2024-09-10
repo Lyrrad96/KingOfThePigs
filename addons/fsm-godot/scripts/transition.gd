@@ -36,7 +36,7 @@ func check_transition() -> bool:
 	# else:
 	# var parent_value = _parent_state._par.get(_variable_name)
 	var parent_value = _parent_state.get(_variable_name)
-	printt('parent_value', _variable_name, parent_value, _parent_state.name, type_string(typeof(parent_value)), _parent_state._par)
+	# printt('parent_value', _variable_name, parent_value, _parent_state.name, type_string(typeof(parent_value)), _parent_state._par)
 	# printt('check_transition', parent_value)
 	match _operator:
 		OperatorType.LESS_THAN:

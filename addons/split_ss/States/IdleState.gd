@@ -18,7 +18,7 @@ func update(_delta: float):
 	attack = _par.isAttacking
 	velocityY = _par.velocity.y
 
-	print(direction)
+	# print(direction)
 	if direction:
 		anim_player.play('Run')
 	else:

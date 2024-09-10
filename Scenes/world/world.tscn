@@ -668,6 +668,10 @@ text = "K run"
 layout_mode = 2
 text = "cam"
 
+[node name="zoom" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+text = "2"
+
 [node name="Signs" type="Node" parent="."]
 
 [node name="Signpost" parent="Signs" instance=ExtResource("8_7xv33")]

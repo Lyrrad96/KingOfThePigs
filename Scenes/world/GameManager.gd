@@ -8,7 +8,9 @@ func attack_calc(defender: Node2D):
 var save_path := "user://debug_variables.tres" # <- tres is Text RESource
 
 @export var debug_data: DebugVariables
-func load_debug() -> void:
+
+func _ready():
+# func load_debug() -> void:
 	debug_data = load(save_path)
 
 	if not debug_data:
