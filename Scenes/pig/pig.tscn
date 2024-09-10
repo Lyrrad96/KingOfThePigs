@@ -569,11 +569,18 @@ target_position = Vector2(-20, 5.05447e-05)
 
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("12_ygfws")
-_initial_state = NodePath("RunState")
+_initial_state = NodePath("IdleState")
 
 [node name="AttackState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("12_5wiak")
-new_child = NodePath("../RunState")
+new_child = NodePath("../IdleState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/AttackState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+_variable_name = "attack"
+_value_type = 2
+_value = "true"
 
 [node name="DeadState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("13_lxu15")
@@ -595,6 +602,45 @@ new_child = NodePath("../RunState")
 script = ExtResource("17_quvhv")
 new_child = NodePath("../RunState")
 
+[node name="ToAttackState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../AttackState")
+_variable_name = "attack"
+_operator = 1
+_value_type = 2
+_value = "true"
+
+[node name="ToDeadState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../DeadState")
+
+[node name="ToFallState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../FallState")
+_variable_name = "velocityY"
+_operator = 2
+_value_type = 1
+_value = "0"
+
+[node name="ToGroundState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../GroundState")
+
+[node name="ToHitState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../HitState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("..")
+
+[node name="ToJumpState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../JumpState")
+_variable_name = "velocityY"
+_value_type = 1
+_value = "0"
+
 [node name="JumpState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("18_of7a6")
 new_child = NodePath("../RunState")
@@ -602,35 +648,3 @@ new_child = NodePath("../RunState")
 [node name="RunState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("19_cbv6i")
 new_child = NodePath("../JumpState")
-
-[node name="ToAttackState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../AttackState")
-_variable_name = "attacking"
-
-[node name="ToDeadState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../DeadState")
-
-[node name="ToFallState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../FallState")
-_variable_name = "velocityY"
-_value_type = 1
-_value = "0"
-
-[node name="ToGroundState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../GroundState")
-
-[node name="ToHitState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../HitState")
-
-[node name="ToIdleState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../IdleState")
-
-[node name="ToJumpState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../JumpState")

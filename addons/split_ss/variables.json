@@ -1,10 +1,10 @@
 {
-    "Attack": ["attack", "attacking"],
-    "Dead": ["hp", "hp"],
-    "Fall": ["velocityY", "velocity.y"],
-    "Ground": ["velocityY", "velocity.y"],
-    "Hit": ["hit", "hit"],
-    "Idle": ["direction", "direction"],
-    "Jump": ["velocityY", "velocity.y"],
-    "Run": ["direction", "direction"]
+    "Attack": ["attack", "_par.isAttacking", "false"],
+    "Dead": ["hp", "_par.hp", "0"],
+    "Fall": ["velocityY", "_par.velocity.y", "0.0"],
+    "Ground": ["velocityY", "_par.velocity.y", "0.0"],
+    "Hit": ["hit", "_par.hit"],
+    "Idle": ["direction", "_par.direction", "0"],
+    "Jump": ["velocityY", "_par.velocity.y", "0.0"],
+    "Run": ["direction", "_par.direction"]
 }

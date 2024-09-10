@@ -2,17 +2,17 @@ extends Node
 
 signal _damage_taken(hp)
 
-
 @onready var attackCollision = $attackHitbox/attackCollision
 
 @onready var bar = $ProgressBar
-var hp
+var hp = 10
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	hp = get_parent().hp
+	# hp = get_parent().hp
+	printt('get_parent', get_parent(), get_parent().hp)
 	bar.value = hp
 	bar.max_value = hp
-	print(hp, bar.max_value)
+	# print(hp, bar.max_value)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

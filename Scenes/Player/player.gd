@@ -11,21 +11,26 @@ extends CharacterBody2D
 const SPEED = 160.0
 const JUMP_VELOCITY = -400.0
 
-var hp: int
-var damage: int
-@export var attacking = false
+var hp: int = 0
+var damage: int = 0
+@export var isAttacking = false
 var stats = preload("res://Scenes/Player/stats.tres")
+@export var attributes: CharStats:
+	set(value):
+		attributes = value
+		hp = value.hp
+		damage = value.damage
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var label = $Label
 @onready var healthbar = $ProgressBar
-@onready var state_machine = StateMachine.new()
 
 func _ready():
-	hp = stats.hp
-	damage = stats.damage
+	printt('attributes', attributes, hp, damage)
+	# hp = stats.hp
+	# damage = stats.damage
 	# label.text = str(hp)
 	# healthbar.max_value = hp
 	#button.connect("pressed", update_trajectory)
@@ -37,8 +42,8 @@ var velocityX
 var velocityY
 
 func _physics_process(delta):
-	hp = stats.hp
-	damage = stats.damage
+	# hp = stats.hp
+	# damage = stats.damage
 
 	# healthbar.value = hp
 
@@ -59,7 +64,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("Attack"):
 		hitbox.attack(delta)
-		attacking = true
+		isAttacking = true
 		# attack()
 	
 	direction = Input.get_axis("Run Left", "Run Right")
@@ -116,7 +121,7 @@ func _physics_process(delta):
 	# 	game_manager.die(get_tree())
 		# queue_free()
 		# animation_player.play("Dead")
-	# if attacking:
+	# if isAttacking:
 	# 	animation_player.play("Attack")
 	# elif hit:
 	# 	animation_player.play("Hit")
@@ -128,7 +133,7 @@ func _physics_process(delta):
 	# 	animation_player.play("Idle")
 
 func attack():
-	attacking = true
+	isAttacking = true
 	# var overlapping_objects = attack_hitbox.get_overlapping_areas()
 	# #printt(overlapping_objects)
 	# for obj in overlapping_objects:

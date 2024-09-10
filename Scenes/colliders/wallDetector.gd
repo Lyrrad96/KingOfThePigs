@@ -14,13 +14,13 @@ var turn = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
 	if wall_detector_h.is_colliding() or not wall_detector_v.is_colliding():
-		printt(wall_detector_h.is_colliding(), wall_detector_v.is_colliding())
+		# printt(wall_detector_h.is_colliding(), wall_detector_v.is_colliding())
 		# collision.emit('h')
 		flip()
 		turn = true
 	# else:
 	# 	turn = false
-	print(turn)
+	# print(turn)
 	# if not wall_detector_v.is_colliding():
 	# 	print(wall_detector_v)
 	# 	# collision.emit('v')

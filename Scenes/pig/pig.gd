@@ -11,10 +11,12 @@ const JUMP_VELOCITY = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var direction = -1
+var direction = 0
 var hp
 var velocityX
 var velocityY
+var isAttacking = false
+
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -27,7 +29,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	#Input.get_axis("ui_left", "ui_right")
-	printt(wallDetector, wallDetector.turn)
+	# printt(wallDetector, wallDetector.turn)
 	hp = hitbox.hp
 	velocityX = velocity.x
 	velocityY = velocity.y

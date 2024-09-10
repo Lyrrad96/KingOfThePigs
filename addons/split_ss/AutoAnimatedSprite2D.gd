@@ -233,20 +233,25 @@ func add_state(state):
 	if not FileAccess.file_exists(script_path) or overwrite:
 		var stateTemplate = FileAccess.open('res://addons/split_ss/stateTemplate.txt', FileAccess.READ)
 
-		var stateVariable = FileAccess.open('res://addons/split_ss/variables.json', FileAccess.READ).get_as_text()#[state]
-		printt('stateVariable', state)
+		var stateVariable = JSON.new().parse_string(FileAccess.open('res://addons/split_ss/variables.json', FileAccess.READ).get_as_text())[state]
+		printt('stateVariable', stateVariable, type_string(typeof(stateVariable)), state)
 
 		var script := GDScript.new()
+
+		var source_code = stateTemplate.get_as_text()
 		
-		script.source_code = stateTemplate.get_as_text().replace('%s', state)
-		script.source_code = stateTemplate.get_as_text().replace('%', 'a')
-		# script.source_code = stateTemplate.get_as_text().replace('%var', stateVariable[0])
-		# script.source_code = stateTemplate.get_as_text().replace('%val', stateVariable[1])
+		source_code = source_code.replace('%s', state)
+		# source_code = stateTemplate.get_as_text().replace('%', 'a')
+		source_code = source_code.replace('%var', stateVariable[0])
+		source_code = source_code.replace('%val', stateVariable[1])
+
+		script.source_code = source_code
+
 		# printt('script.source_code', script.source_code)
 		var error = ResourceSaver.save(script, script_path, not FileAccess.file_exists(script_path))
 	var lscript = load(script_path)
 	# var cl = ClassDB.instantiate('AnimationPlayer')
-	printt('state_node', state_name, fsm, AttackState, '|', script_path, lscript)
+	printt('state_node', state_name, fsm, '|', script_path, lscript)
 	var state_node = create_child(lscript, state_name, fsm)
 
 func create_child(type, name, parent = get_parent()):
