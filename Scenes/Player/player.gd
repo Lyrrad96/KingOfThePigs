@@ -13,7 +13,7 @@ const JUMP_VELOCITY = -400.0
 
 var hp: int = 0
 var damage: int = 0
-@export var isAttacking = false
+@export var mustAttack = false
 var stats = preload("res://Scenes/Player/stats.tres")
 @export var attributes: CharStats:
 	set(value):
@@ -28,10 +28,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var healthbar = $ProgressBar
 
 func _ready():
-	printt('attributes', attributes, hp, damage)
+	printt('attributes', attributes, hp, damage, game_manager)
 	# hp = stats.hp
 	# damage = stats.damage
-	# label.text = str(hp)
+	label.text = str(hp)
+	print(hp)
+
 	# healthbar.max_value = hp
 	#button.connect("pressed", update_trajectory)
 
@@ -63,8 +65,8 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	
 	if Input.is_action_just_pressed("Attack"):
-		hitbox.attack(delta)
-		isAttacking = true
+		# hitbox.attack(delta)
+		mustAttack = true
 		# attack()
 	
 	direction = Input.get_axis("Run Left", "Run Right")
@@ -121,7 +123,7 @@ func _physics_process(delta):
 	# 	game_manager.die(get_tree())
 		# queue_free()
 		# animation_player.play("Dead")
-	# if isAttacking:
+	# if mustAttack:
 	# 	animation_player.play("Attack")
 	# elif hit:
 	# 	animation_player.play("Hit")
@@ -133,7 +135,7 @@ func _physics_process(delta):
 	# 	animation_player.play("Idle")
 
 func attack():
-	isAttacking = true
+	mustAttack = true
 	# var overlapping_objects = attack_hitbox.get_overlapping_areas()
 	# #printt(overlapping_objects)
 	# for obj in overlapping_objects:

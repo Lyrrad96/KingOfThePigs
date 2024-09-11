@@ -1,10 +1,50 @@
 {
-    "Attack": ["attack", "_par.isAttacking", "false"],
-    "Dead": ["hp", "_par.hp", "0"],
-    "Fall": ["velocityY", "_par.velocity.y", "0.0"],
-    "Ground": ["velocityY", "_par.velocity.y", "0.0"],
-    "Hit": ["hit", "_par.hit"],
-    "Idle": ["direction", "_par.direction", "0"],
-    "Jump": ["velocityY", "_par.velocity.y", "0.0"],
-    "Run": ["direction", "_par.direction"]
+    "AttackState": {
+        "variable_name": "mustAttack",
+        "operator": 1,
+        "value_type": 2,
+        "value": "true"
+    },
+    "DeadState": {
+        "variable_name": "hp",
+        "operator": 0,
+        "value_type": 0,
+        "value": "0"
+    },
+    "FallState": {
+        "variable_name": "velocityY",
+        "operator": 2,
+        "value_type": 1,
+        "value": "0.0"
+    },
+    "GroundState": {
+        "variable_name": "velocityY",
+        "operator": 1,
+        "value_type": 1,
+        "value": "0.0"
+    },
+    "HitState": {
+        "variable_name": "isHit",
+        "operator": 1,
+        "value_type": 2,
+        "value": "true"
+    },
+    "IdleState": {
+        "variable_name": "direction",
+        "operator": 1,
+        "value_type": 0,
+        "value": "0"
+    },
+    "JumpState": {
+        "variable_name": "velocityY",
+        "operator": 0,
+        "value_type": 1,
+        "value": "0.0"
+    },
+    "RunState": {
+        "variable_name": "direction",
+        "operator": 3,
+        "value_type": 0,
+        "value": "0"
+    }
 }

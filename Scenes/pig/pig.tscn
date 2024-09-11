@@ -1,7 +1,8 @@
-[gd_scene load_steps=65 format=3 uid="uid://2c0s7ovf0uqu"]
+[gd_scene load_steps=67 format=3 uid="uid://2c0s7ovf0uqu"]
 
 [ext_resource type="Script" path="res://Scenes/pig/pig.gd" id="1_bshvp"]
 [ext_resource type="Texture2D" uid="uid://b5tmi7n26qr1x" path="res://Sprites/03-Pig/Attack (34x28).png" id="1_ybphd"]
+[ext_resource type="Script" path="res://characterStats.gd" id="2_3l84j"]
 [ext_resource type="Texture2D" uid="uid://dttw1mkebuyjf" path="res://Sprites/03-Pig/Dead (34x28).png" id="2_4vgag"]
 [ext_resource type="Texture2D" uid="uid://cb8gtp6stgulm" path="res://Sprites/03-Pig/Fall (34x28).png" id="3_3m2n1"]
 [ext_resource type="Texture2D" uid="uid://dipfen3ab1gni" path="res://Sprites/03-Pig/Ground (34x28).png" id="4_x1gy4"]
@@ -10,18 +11,23 @@
 [ext_resource type="Texture2D" uid="uid://dgf8japfuhuck" path="res://Sprites/03-Pig/Jump (34x28).png" id="7_wue6r"]
 [ext_resource type="PackedScene" uid="uid://mv0ph3g3w81n" path="res://Scenes/colliders/hitbox.tscn" id="11_u5ule"]
 [ext_resource type="Texture2D" uid="uid://88sun7f0kng8" path="res://Sprites/03-Pig/Idle (34x28).png" id="11_vxpoy"]
-[ext_resource type="Script" path="res://addons/split_ss/States/AttackState.gd" id="12_5wiak"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/AttackState.gd" id="12_5wiak"]
 [ext_resource type="PackedScene" uid="uid://bv5kslca1cj60" path="res://Scenes/colliders/wallDetector.tscn" id="12_doxwk"]
 [ext_resource type="Script" path="res://addons/fsm-godot/scripts/finite_state_machine.gd" id="12_ygfws"]
 [ext_resource type="Texture2D" uid="uid://cp0ka42apm8cb" path="res://Sprites/03-Pig/Run (34x28).png" id="13_e1m0v"]
-[ext_resource type="Script" path="res://addons/split_ss/States/DeadState.gd" id="13_lxu15"]
-[ext_resource type="Script" path="res://addons/split_ss/States/FallState.gd" id="14_chxj8"]
-[ext_resource type="Script" path="res://addons/split_ss/States/GroundState.gd" id="15_pv780"]
-[ext_resource type="Script" path="res://addons/split_ss/States/HitState.gd" id="16_cq2cn"]
-[ext_resource type="Script" path="res://addons/split_ss/States/IdleState.gd" id="17_quvhv"]
-[ext_resource type="Script" path="res://addons/split_ss/States/JumpState.gd" id="18_of7a6"]
-[ext_resource type="Script" path="res://addons/split_ss/States/RunState.gd" id="19_cbv6i"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/DeadState.gd" id="13_lxu15"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/FallState.gd" id="14_chxj8"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/GroundState.gd" id="15_pv780"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/HitState.gd" id="16_cq2cn"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/IdleState.gd" id="17_quvhv"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/JumpState.gd" id="18_of7a6"]
+[ext_resource type="Script" path="res://addons/split_ss/States/public/RunState.gd" id="19_cbv6i"]
 [ext_resource type="Script" path="res://addons/fsm-godot/scripts/transition.gd" id="20_g05jc"]
+
+[sub_resource type="Resource" id="Resource_62nhh"]
+script = ExtResource("2_3l84j")
+hp = 100
+damage = 5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vvd46"]
 radius = 8.0
@@ -523,6 +529,7 @@ _data = {
 
 [node name="pig" type="CharacterBody2D"]
 script = ExtResource("1_bshvp")
+attributes = SubResource("Resource_62nhh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, -8)
@@ -578,34 +585,61 @@ new_child = NodePath("../IdleState")
 [node name="ToIdleState" type="Node" parent="FiniteStateMachine/AttackState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")
 target_state = NodePath("../../IdleState")
-_variable_name = "attack"
+_variable_name = "mustAttack"
+_operator = 3
 _value_type = 2
 _value = "true"
 
 [node name="DeadState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("13_lxu15")
-new_child = NodePath("../RunState")
+new_child = NodePath("../IdleState")
 
 [node name="FallState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("14_chxj8")
-new_child = NodePath("../RunState")
+new_child = NodePath("../IdleState")
+
+[node name="ToGroundState" type="Node" parent="FiniteStateMachine/FallState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../GroundState")
+_variable_name = "velocityY"
+_operator = 1
+_value_type = 1
+_value = "0.0"
 
 [node name="GroundState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("15_pv780")
-new_child = NodePath("../RunState")
+new_child = NodePath("../IdleState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/GroundState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+_variable_name = "velocityY"
+_operator = 1
+_value_type = 1
+_value = "0.0"
 
 [node name="HitState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("16_cq2cn")
-new_child = NodePath("../RunState")
+new_child = NodePath("../IdleState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/HitState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+_variable_name = "isHit"
+_operator = 3
+_value_type = 2
+_value = "true"
 
 [node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("17_quvhv")
+_check_transition_interval = null
 new_child = NodePath("../RunState")
+submit = null
 
 [node name="ToAttackState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")
 target_state = NodePath("../../AttackState")
-_variable_name = "attack"
+_variable_name = "mustAttack"
 _operator = 1
 _value_type = 2
 _value = "true"
@@ -613,6 +647,8 @@ _value = "true"
 [node name="ToDeadState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")
 target_state = NodePath("../../DeadState")
+_variable_name = "hp"
+_value = "0"
 
 [node name="ToFallState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")
@@ -620,31 +656,49 @@ target_state = NodePath("../../FallState")
 _variable_name = "velocityY"
 _operator = 2
 _value_type = 1
-_value = "0"
-
-[node name="ToGroundState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("../../GroundState")
+_value = "0.0"
 
 [node name="ToHitState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")
 target_state = NodePath("../../HitState")
-
-[node name="ToIdleState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
-script = ExtResource("20_g05jc")
-target_state = NodePath("..")
+_variable_name = "isHit"
+_operator = 1
+_value_type = 2
+_value = "true"
 
 [node name="ToJumpState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")
 target_state = NodePath("../../JumpState")
 _variable_name = "velocityY"
 _value_type = 1
+_value = "0.0"
+
+[node name="ToRunState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../RunState")
+_variable_name = "direction"
+_operator = 3
 _value = "0"
 
 [node name="JumpState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("18_of7a6")
-new_child = NodePath("../RunState")
+new_child = NodePath("../IdleState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/JumpState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+_variable_name = "velocityY"
+_operator = 2
+_value_type = 1
+_value = "0.0"
 
 [node name="RunState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("19_cbv6i")
-new_child = NodePath("../JumpState")
+new_child = NodePath("../IdleState")
+
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("20_g05jc")
+target_state = NodePath("../../IdleState")
+_variable_name = "direction"
+_operator = 1
+_value = "0"

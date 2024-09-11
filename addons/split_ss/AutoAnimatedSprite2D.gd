@@ -233,18 +233,19 @@ func add_state(state):
 	if not FileAccess.file_exists(script_path) or overwrite:
 		var stateTemplate = FileAccess.open('res://addons/split_ss/stateTemplate.txt', FileAccess.READ)
 
-		var stateVariable = JSON.new().parse_string(FileAccess.open('res://addons/split_ss/variables.json', FileAccess.READ).get_as_text())[state]
-		printt('stateVariable', stateVariable, type_string(typeof(stateVariable)), state)
 
 		var script := GDScript.new()
 
 		var source_code = stateTemplate.get_as_text()
 		
 		source_code = source_code.replace('%s', state)
-		# source_code = stateTemplate.get_as_text().replace('%', 'a')
-		source_code = source_code.replace('%var', stateVariable[0])
-		source_code = source_code.replace('%val', stateVariable[1])
 
+		# var stateVariable = JSON.new().parse_string(FileAccess.open('res://addons/split_ss/variables.json', FileAccess.READ).get_as_text())[state]
+		# printt('stateVariable', stateVariable, type_string(typeof(stateVariable)), state)
+		# source_code = stateTemplate.get_as_text().replace('%', 'a')
+		# source_code = source_code.replace('%var', stateVariable[0])
+		# source_code = source_code.replace('%val', stateVariable[1])
+		
 		script.source_code = source_code
 
 		# printt('script.source_code', script.source_code)

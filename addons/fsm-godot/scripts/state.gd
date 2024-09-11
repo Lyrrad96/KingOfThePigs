@@ -28,7 +28,7 @@ var _check_transition_timer : float = 0.0
 
 func _ready():
 	# anim_player = _par.find_children('*', 'AnimationPlayer')[0]
-	# print('_ready')
+	print('_ready')
 	# # Create a new script resource
 	# var script := GDScript.new()
 	# # var script := SaveFile.new()
@@ -58,7 +58,7 @@ func _ready():
 
 ## Called when the node enters the scene tree for the first time.
 func enter_state() -> void:
-	print('enter_state')
+	# print('enter_state')
 	pass
 
 

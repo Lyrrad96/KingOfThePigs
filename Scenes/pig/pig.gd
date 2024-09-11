@@ -2,20 +2,36 @@ extends CharacterBody2D
 
 const SPEED = 30.0
 const JUMP_VELOCITY = -400.0
+
+@onready var game_manager = %GameManager
+
 @onready var label = $Label
 @onready var wallDetector = $wallDetector
 
 @onready var wall_detector_v = $wallDetectorV
 @onready var wall_detector_h = $wallDetectorH
 @onready var hitbox = $Hitbox
+@onready var animation_player = $AnimationPlayer
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 0
-var hp
+var hp	
+var damage
 var velocityX
 var velocityY
 var isAttacking = false
+
+@export var attributes: CharStats:
+	set(value):
+		attributes = value
+		hp = value.hp
+		damage = value.damage
+		print(value)
+
+func _ready():
+	label.text = str(hp)
+	print(hp, attributes.hp)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -30,7 +46,7 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	#Input.get_axis("ui_left", "ui_right")
 	# printt(wallDetector, wallDetector.turn)
-	hp = hitbox.hp
+	# hp = hitbox.hp
 	velocityX = velocity.x
 	velocityY = velocity.y
 

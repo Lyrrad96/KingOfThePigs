@@ -8,14 +8,14 @@ var current_node
 # signal animation_updated(animation_player: AnimationPlayer)
 
 func _can_handle(object):
-	printt('gen object', object)
+	# printt('gen object', object)
 	if object is FiniteStateMachine:
 		current_node = object
-		printt('object', object, type_string(typeof(object)), object.get_class())
+		# printt('object', object, type_string(typeof(object)), object.get_class())
 		return true
 	if object is State:
 		current_node = object
-		print_debug('object', object)
+		# print_debug('object', object)
 		return true
 	return false
 
@@ -43,10 +43,20 @@ func addTransInit(object: Object):
 	# addchild(children[0])
 	for child in object.get_children():
 		printt('\n\nchild', child, object._initial_state, child == object._initial_state)
+		var stateVariable = JSON.new().parse_string(FileAccess.open('res://addons/split_ss/variables.json', FileAccess.READ).get_as_text())
+		# print(stateVariable)
 		if child != object._initial_state:
 			printt('sib', child, child.new_child)
 			object._initial_state.new_child = child
-			addchild(object._initial_state)
+			var childInit = addchild(object._initial_state)
+
+			printt('childInit', childInit, child, child.name, stateVariable[child.name])
+			childInit._variable_name = stateVariable[child.name].variable_name
+			childInit._operator = stateVariable[child.name].operator
+			childInit._value = stateVariable[child.name].value
+			childInit._value_type = stateVariable[child.name].value_type
+			printt(childInit._variable_name, childInit._operator, childInit._value, childInit._value_type)
+
 	# for child in object.get_children():
 	# 	printt('\n\nchild', child, object._initial_state, child == object._initial_state)
 	# 	if child != object._initial_state:
