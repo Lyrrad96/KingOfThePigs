@@ -27,7 +27,7 @@
 [sub_resource type="Resource" id="Resource_62nhh"]
 script = ExtResource("2_3l84j")
 hp = 100
-damage = 5
+damage = 40
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vvd46"]
 radius = 8.0

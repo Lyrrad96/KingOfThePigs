@@ -21,7 +21,7 @@ func update_trajectory(delta):
 	var pos = trajectory.get_parent().global_position
 	var vel = Vector2(1, 1) * trajectory.get_parent().JUMP_VELOCITY
 	#vel.x *= (-1 if player_sprite.flip_h else 1)
-	printt(pos, vel)
+	# printt(pos, vel)
 	#printt(trajectory.get_parent().player_sprite.flip_h)
 	#printt('\n')
 	for i in max_points:

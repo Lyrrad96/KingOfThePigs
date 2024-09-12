@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_g0qxb"]
 radius = 7.0
 
-[node name="cannonball" type="CharacterBody2D"]
+[node name="cannonball" type="RigidBody2D"]
 script = ExtResource("1_s7rru")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
