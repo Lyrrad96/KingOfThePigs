@@ -577,6 +577,9 @@ target_position = Vector2(-20, 5.05447e-05)
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("12_ygfws")
 _initial_state = NodePath("IdleState")
+addTrans = null
+new_child = null
+submit = null
 
 [node name="AttackState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("12_5wiak")
@@ -632,9 +635,7 @@ _value = "true"
 
 [node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("17_quvhv")
-_check_transition_interval = null
 new_child = NodePath("../RunState")
-submit = null
 
 [node name="ToAttackState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")

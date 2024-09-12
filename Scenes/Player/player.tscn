@@ -581,6 +581,9 @@ libraries = {
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("13_w8ufu")
 _initial_state = NodePath("IdleState")
+addTrans = null
+new_child = null
+submit = null
 
 [node name="AttackState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("14_arp1f")
@@ -636,9 +639,7 @@ _value = "true"
 
 [node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("20_vgd1w")
-_check_transition_interval = null
 new_child = NodePath("../RunState")
-submit = null
 
 [node name="ToAttackState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
@@ -706,3 +707,40 @@ target_state = NodePath("../../IdleState")
 _variable_name = "direction"
 _operator = 1
 _value = "0"
+
+[node name="ToAttackState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("17_4vk1e")
+target_state = NodePath("../../AttackState")
+_variable_name = "mustAttack"
+_operator = 1
+_value_type = 2
+_value = "true"
+
+[node name="ToDeadState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("17_4vk1e")
+target_state = NodePath("../../DeadState")
+_variable_name = "hp"
+_value = "0"
+
+[node name="ToFallState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("17_4vk1e")
+target_state = NodePath("../../FallState")
+_variable_name = "velocityY"
+_operator = 2
+_value_type = 1
+_value = "0.0"
+
+[node name="ToHitState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("17_4vk1e")
+target_state = NodePath("../../HitState")
+_variable_name = "isHit"
+_operator = 1
+_value_type = 2
+_value = "true"
+
+[node name="ToJumpState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("17_4vk1e")
+target_state = NodePath("../../JumpState")
+_variable_name = "velocityY"
+_value_type = 1
+_value = "0.0"

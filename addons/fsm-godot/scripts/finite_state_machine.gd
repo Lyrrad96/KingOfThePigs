@@ -41,9 +41,14 @@ func _ready():
 	if _initial_state:
 		change_state(_initial_state)
 	# anim_player = get_parent().find_children('*', 'AnimationPlayer')[0]
-	# print('fsm', anim_player, get_parent().find_children('*', 'AnimationPlayer'))
+	# print('fsm', _current_state)
 
 func _process(delta):
+
+	# if get_parent().name == 'Player':
+	# 	var p = get_parent()
+		# printt('fsm', _current_state, p.velocityY)
+
 	if _current_state:
 		_current_state.update(delta)
 
