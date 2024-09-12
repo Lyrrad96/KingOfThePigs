@@ -58,6 +58,7 @@ func change_state(new_state: State):
 	if _current_state is State:
 		# Exit the current state and enter the new one
 		_current_state.exit_state()
+
 	new_state.enter_state()
 	# Set the new state as the current one
 	_current_state = new_state

@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://nrsysmn67n01"]
+[gd_scene load_steps=2 format=3 uid="uid://nrsysmn67n01"]
+
+[ext_resource type="Script" path="res://Scenes/world/trajectory.gd" id="1_tahl2"]
 
 [node name="Trajectory" type="Node"]
+script = ExtResource("1_tahl2")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 

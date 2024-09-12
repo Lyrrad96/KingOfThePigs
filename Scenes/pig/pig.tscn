@@ -632,9 +632,7 @@ _value = "true"
 
 [node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("17_quvhv")
-_check_transition_interval = null
 new_child = NodePath("../RunState")
-submit = null
 
 [node name="ToAttackState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("20_g05jc")

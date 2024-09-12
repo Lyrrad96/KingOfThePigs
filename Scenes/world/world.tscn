@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bc1ss2dsbk1p8"]
+[gd_scene load_steps=17 format=4 uid="uid://bc1ss2dsbk1p8"]
 
 [ext_resource type="Script" path="res://Scenes/world/world.gd" id="1_8mga3"]
 [ext_resource type="Texture2D" uid="uid://bjq4a0dg7jv8r" path="res://Sprites/14-TileSets/Terrain (32x32).png" id="1_qurut"]
@@ -7,9 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://pema07bvtcst" path="res://Scenes/Player/player.tscn" id="3_o2ey3"]
 [ext_resource type="PackedScene" uid="uid://ku3jgqye7gqq" path="res://Scenes/King/king.tscn" id="4_ukpq7"]
 [ext_resource type="PackedScene" uid="uid://ctarp4ibu1x3k" path="res://Scenes/box/box.tscn" id="5_ynvv0"]
+[ext_resource type="PackedScene" uid="uid://c07p1swc78eo1" path="res://Scenes/weapons/bomb.tscn" id="6_seoma"]
 [ext_resource type="PackedScene" uid="uid://2c0s7ovf0uqu" path="res://Scenes/pig/pig.tscn" id="7_hp7al"]
 [ext_resource type="PackedScene" uid="uid://b5i6f1jkrusmw" path="res://Scenes/signpost/signpost.tscn" id="8_7xv33"]
 [ext_resource type="Script" path="res://characterStats.gd" id="9_dgsnw"]
+[ext_resource type="PackedScene" uid="uid://dkgs1xahkglgb" path="res://Scenes/weapons/cannon.tscn" id="12_obs8d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1pl2d"]
 texture = ExtResource("1_qurut")
@@ -639,10 +641,13 @@ tile_map_data = PackedByteArray("AAD6/wAAAAADAAIAAAD7/wAAAAAEAAIAAAD8/wAAAAAFAAI
 tile_set = SubResource("TileSet_u8h6x")
 
 [node name="Player" parent="." instance=ExtResource("3_o2ey3")]
-position = Vector2(22, -68)
+position = Vector2(-329, -13)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
+
+[node name="Bomb" parent="." instance=ExtResource("6_seoma")]
+position = Vector2(7, -1)
 
 [node name="King" parent="." instance=ExtResource("4_ukpq7")]
 texture_filter = 1
@@ -686,3 +691,6 @@ text = "2"
 [node name="Signpost" parent="Signs" instance=ExtResource("8_7xv33")]
 position = Vector2(-474, -55)
 text = "Z to attack"
+
+[node name="Cannon" parent="." instance=ExtResource("12_obs8d")]
+position = Vector2(-211, -9)
