@@ -5,14 +5,14 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#printt(trajectory, trajectory.get_parent(), trajectory.get_parent().global_position, trajectory.get_parent().JUMP_VELOCITY, )
+	printt(trajectory, trajectory.get_parent(), trajectory.get_parent().global_position, trajectory.get_parent().JUMP_VELOCITY, )
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#if trajectory.get_parent().is_on_floor():
-	if not Engine.is_editor_hint():
-		update_trajectory(delta)
+	# if not Engine.is_editor_hint():
+	update_trajectory(delta)
 
 @onready var line = $Line
 var max_points = 250
@@ -21,7 +21,7 @@ func update_trajectory(delta):
 	var pos = trajectory.get_parent().global_position
 	var vel = Vector2(1, 1) * trajectory.get_parent().JUMP_VELOCITY
 	#vel.x *= (-1 if player_sprite.flip_h else 1)
-	#printt(pos, vel, global_transform)
+	printt(pos, vel)
 	#printt(trajectory.get_parent().player_sprite.flip_h)
 	#printt('\n')
 	for i in max_points:

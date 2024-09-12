@@ -28,7 +28,7 @@ var _check_transition_timer : float = 0.0
 
 func _ready():
 	# anim_player = _par.find_children('*', 'AnimationPlayer')[0]
-	print('_ready')
+	# print('_ready')
 	# # Create a new script resource
 	# var script := GDScript.new()
 	# # var script := SaveFile.new()
@@ -70,7 +70,7 @@ func exit_state() -> void:
 ## Called every frame
 func update(_delta : float) -> void:
 	# print('update')
-	# _check_transition_timer += _delta
+# _check_transition_timer += _delta
 	# if _check_transition_timer >= _check_transition_interval:
 	# 	_check_transition_timer = 0.0
 	_check_transitions()

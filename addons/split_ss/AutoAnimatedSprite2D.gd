@@ -44,7 +44,7 @@ func update_sprite_frames():
 				global_position.y = -frame_size.y/2
 				
 				# use name of file as name of animation (remove extension and dimensions in brackets) Attack(38x28).png -> Attack
-				var anim_name = file_name.split('.')[0].split(' (')[0]
+				var anim_name = file_name.split('.')[0].split(' (')[0].replace(' ', '')
 				if anim_name not in sprite_frames.get_animation_names():
 					sprite_frames.add_animation(anim_name)
 				
@@ -228,11 +228,11 @@ func add_state(state):
 	var state_name = state + 'State'
 	
 	# Optionally save the script to a file (uncomment the next lines if needed)
+	# var script_path = "res://addons/split_ss/States/"+ sprite_folder.split('Sprites/')[1] + '/' +state_name+".gd"
 	var script_path = "res://addons/split_ss/States/"+state_name+".gd"
-	# printt(script_path, FileAccess.file_exists(script_path))
+	# printt(script_path, sprite_folder, FileAccess.file_exists(script_path), sprite_folder.split('Sprites/')[1])
 	if not FileAccess.file_exists(script_path) or overwrite:
 		var stateTemplate = FileAccess.open('res://addons/split_ss/stateTemplate.txt', FileAccess.READ)
-
 
 		var script := GDScript.new()
 
@@ -253,7 +253,9 @@ func add_state(state):
 	var lscript = load(script_path)
 	# var cl = ClassDB.instantiate('AnimationPlayer')
 	printt('state_node', state_name, fsm, '|', script_path, lscript)
-	var state_node = create_child(lscript, state_name, fsm)
+	if fsm:
+		var state_node = create_child(lscript, state_name, fsm)
+	return lscript
 
 func create_child(type, name, parent = get_parent()):
 	var child = parent.find_children("*", name)

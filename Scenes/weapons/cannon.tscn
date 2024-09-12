@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkgs1xahkglgb"]
+
+[ext_resource type="Script" path="res://Scenes/weapons/cannon.gd" id="1_uodv0"]
+[ext_resource type="Script" path="res://addons/split_ss/AutoAnimatedSprite2D.gd" id="2_xfr4r"]
+[ext_resource type="PackedScene" uid="uid://nrsysmn67n01" path="res://Scenes/world/trajectory.tscn" id="3_cct1d"]
+[ext_resource type="PackedScene" uid="uid://c2padck8uc74a" path="res://Scenes/weapons/cannonball.tscn" id="4_l1qrg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gd2bo"]
+
+[node name="Cannon" type="Node2D"]
+script = ExtResource("1_uodv0")
+
+[node name="cannonball" parent="." instance=ExtResource("4_l1qrg")]
+
+[node name="AutoAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_gd2bo")
+script = ExtResource("2_xfr4r")
+sprite_folder = "res://Sprites/10-Cannon"
+
+[node name="Trajectory" parent="." instance=ExtResource("3_cct1d")]

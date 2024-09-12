@@ -23,7 +23,9 @@ func addchild(object):
 	var a = AddChildNode.new()
 	printt('addchild', object, a, object.new_child)
 	if object is FiniteStateMachine:
-		a.add_child_node(State, object, object.new_child+'State')
+		print('fss')
+		var state = AutoAnimatedSprite2D.new().add_state(object.new_child)
+		a.add_child_node(state, object, object.new_child+'State')
 	if object is State:
 		var trans = a.add_child_node(Transition, object, 'To'+object.new_child.name)
 		trans.target_state = object.new_child
@@ -155,7 +157,7 @@ func addTransBtn(object: Object):
 	# container.add_child(exports)
 
 	return container
-	
+
 func _parse_property(object: Object, type: int, path: String, hint: int, hint_text: String, usage: int, wide: bool) -> bool:
 	var handled = false
 	# printt(path, hint_text)
