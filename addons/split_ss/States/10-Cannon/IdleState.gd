@@ -1,7 +1,7 @@
 extends State
-class_name BombOnState
+class_name IdleStateCannon
 
 func update(_delta: float):
 	super.update(_delta)
 
-	_par.animation_player.play('BombOn')
+	_par.animation_player.play('Idle')

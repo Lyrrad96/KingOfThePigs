@@ -22,9 +22,7 @@ func _ready():
 	king_speed.text = 'K run ' + str(king.ikr)
 
 	zoom.connect("pressed", zoom_tog)
-	var z = game_manager.debug_data['zoom']
-	cam.zoom = Vector2(z, z)
-	zoom.text = str(cam.zoom.x) + 'x'
+	update_zoom(game_manager.debug_data['zoom'])
 
 	# signpost.find_child("Label", true).text = "z to attack"
 
@@ -44,9 +42,16 @@ func cam_tog():
 
 func zoom_tog():
 	# cam.zoom = Vector2(2, 2) if cam.zoom == Vector2(2, 2) else Vector2(4, 4)
-	cam.zoom = Vector2(2, 2) if cam.zoom == Vector2(4, 4) else Vector2(4, 4)
+	var arr = [1.0, 2.0, 4.0]
+	var ind = (arr.find(game_manager.debug_data['zoom'])+1)%3
+	var z = arr[ind]
+	game_manager.save_debug('zoom', z)
+
+	update_zoom(z)
+	
+func update_zoom(z):
+	cam.zoom = Vector2(z, z)
 	zoom.text = str(cam.zoom.x) + 'x'
-	game_manager.save_debug('zoom', cam.zoom.x)
 
 func set_stylebox_color():
 

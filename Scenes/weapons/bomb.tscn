@@ -1,16 +1,17 @@
-[gd_scene load_steps=24 format=3 uid="uid://c07p1swc78eo1"]
+[gd_scene load_steps=28 format=3 uid="uid://c07p1swc78eo1"]
 
-[ext_resource type="Texture2D" uid="uid://b0f8n5bpoaa6o" path="res://Sprites/09-Bomb/Bomb Off (52x56).png" id="1_q42j5"]
 [ext_resource type="Script" path="res://Scenes/weapons/bomb.gd" id="1_v0eto"]
 [ext_resource type="Texture2D" uid="uid://cgu5p5f6mg0xj" path="res://Sprites/09-Bomb/Bomb On (52x56).png" id="2_ouppb"]
-[ext_resource type="Texture2D" uid="uid://4pyvk3r08rgi" path="res://Sprites/09-Bomb/Boooooom (52x56).png" id="3_sq4u3"]
+[ext_resource type="Texture2D" uid="uid://cthssi8wgrlco" path="res://Sprites/09-Bomb/Boom (52x56).png" id="3_sq4u3"]
 [ext_resource type="Script" path="res://addons/split_ss/AutoAnimatedSprite2D.gd" id="4_t7dg1"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_o2kr6"]
-radius = 8.0
+[ext_resource type="Script" path="res://addons/fsm-godot/scripts/finite_state_machine.gd" id="6_ax3rl"]
+[ext_resource type="Script" path="res://addons/split_ss/States/09-Bomb/BombOffState.gd" id="6_osyir"]
+[ext_resource type="Script" path="res://addons/split_ss/States/09-Bomb/BombOnState.gd" id="7_038cw"]
+[ext_resource type="Script" path="res://addons/fsm-godot/scripts/transition.gd" id="8_ug1hu"]
+[ext_resource type="Script" path="res://addons/split_ss/States/09-Bomb/BoomState.gd" id="9_qbuh7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rr74m"]
-atlas = ExtResource("1_q42j5")
+atlas = ExtResource("3_sq4u3")
 region = Rect2(0, 0, 52, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4tqvu"]
@@ -100,73 +101,20 @@ animations = [{
 "texture": SubResource("AtlasTexture_g3pwa")
 }],
 "loop": true,
-"name": &"Boooooom",
+"name": &"Boom",
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_qt5c6"]
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["BombOff"]
-}
+[sub_resource type="CircleShape2D" id="CircleShape2D_qkkt1"]
+radius = 16.0
 
-[sub_resource type="Animation" id="Animation_3o4dl"]
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["BombOn"]
-}
-
-[sub_resource type="Animation" id="Animation_tb4sd"]
+[sub_resource type="Animation" id="Animation_btq42"]
 length = 1.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -178,7 +126,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:animation")
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -188,42 +136,165 @@ tracks/1/keys = {
 "values": ["Boooooom"]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdefy"]
-_data = {
-"BombOff": SubResource("Animation_qt5c6"),
-"BombOn": SubResource("Animation_3o4dl"),
-"Boooooom": SubResource("Animation_tb4sd")
+[sub_resource type="Animation" id="Animation_ph1td"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["BombOff"]
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ohxyg"]
-radius = 33.1361
+[sub_resource type="Animation" id="Animation_k1aix"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["BombOn"]
+}
+
+[sub_resource type="Animation" id="Animation_3h2ks"]
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Boom"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nfajl"]
+_data = {
+"BombOff": SubResource("Animation_ph1td"),
+"BombOn": SubResource("Animation_k1aix"),
+"Boom": SubResource("Animation_3h2ks"),
+"Boooooom": SubResource("Animation_btq42")
+}
 
 [node name="Bomb" type="Area2D"]
 script = ExtResource("1_v0eto")
+damage = 40
+knock_atk = Vector2(200, 20)
 
-[node name="trigger" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
-shape = SubResource("CircleShape2D_o2kr6")
-
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="AutoAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -13)
+position = Vector2(-1, -11)
 sprite_frames = SubResource("SpriteFrames_ovr8n")
-animation = &"Boooooom"
-frame = 3
+animation = &"BombOn"
 script = ExtResource("4_t7dg1")
 sprite_folder = "res://Sprites/09-Bomb"
 frame_size = Vector2(52, 56)
 
+[node name="damage" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_qkkt1")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pdefy")
+"": SubResource("AnimationLibrary_nfajl")
 }
 
-[node name="damage" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -12)
-shape = SubResource("CircleShape2D_ohxyg")
-disabled = true
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
+script = ExtResource("6_ax3rl")
+_initial_state = NodePath("BombOnState")
+new_child = "BombOff"
+
+[node name="BombOffState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("6_osyir")
+new_child = NodePath("../BombOnState")
+
+[node name="ToBombOnState" type="Node" parent="FiniteStateMachine/BombOffState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("8_ug1hu")
+target_state = NodePath("../../BombOnState")
+_variable_name = "state"
+_operator = 3
+_value = "1"
+
+[node name="BombOnState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("7_038cw")
+new_child = NodePath("../BoomState")
+
+[node name="ToBombOffState" type="Node" parent="FiniteStateMachine/BombOnState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("8_ug1hu")
+target_state = NodePath("../../BombOffState")
+_variable_name = "state"
+_operator = 1
+_value = "1"
+
+[node name="ToBoomState" type="Node" parent="FiniteStateMachine/BombOnState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("8_ug1hu")
+target_state = NodePath("../../BoomState")
+_variable_name = "state"
+_operator = 1
+_value = "2"
+
+[node name="BoomState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+script = ExtResource("9_qbuh7")
+new_child = NodePath("../BombOnState")
+
+[node name="ToBombOnState" type="Node" parent="FiniteStateMachine/BoomState" node_paths=PackedStringArray("target_state")]
+script = ExtResource("8_ug1hu")
+target_state = NodePath("../../BombOnState")
+_variable_name = "state"
+_operator = 3
+_value = "2"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

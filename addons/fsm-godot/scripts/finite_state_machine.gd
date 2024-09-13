@@ -45,9 +45,9 @@ func _ready():
 
 func _process(delta):
 
-	# if get_parent().name == 'Player':
-	# 	var p = get_parent()
-		# printt('fsm', _current_state, p.velocityY)
+	if get_parent().name == 'Player' &&  not _current_state is IdleState:
+		var p = get_parent()
+		# printt('fsm', _current_state, get_parent().velocityX==0)
 
 	if _current_state:
 		_current_state.update(delta)

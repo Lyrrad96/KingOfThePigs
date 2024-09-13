@@ -46,5 +46,23 @@
         "operator": 3,
         "value_type": 0,
         "value": "0"
+    },
+    "BombOnState": {
+        "variable_name": "state",
+        "operator": 1,
+        "value_type": 0,
+        "value": "0"
+    },
+    "BombOffState": {
+        "variable_name": "state",
+        "operator": 1,
+        "value_type": 0,
+        "value": "1"
+    },
+    "BoomState": {
+        "variable_name": "state",
+        "operator": 1,
+        "value_type": 0,
+        "value": "2"
     }
 }

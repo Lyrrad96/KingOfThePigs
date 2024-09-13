@@ -1,7 +1,7 @@
 [gd_scene load_steps=68 format=3 uid="uid://pema07bvtcst"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_sdgrw"]
-[ext_resource type="Script" path="res://characterStats.gd" id="2_dy7ph"]
+[ext_resource type="Script" path="res://resources/characterStats.gd" id="2_dy7ph"]
 [ext_resource type="Texture2D" uid="uid://bo1t5y77qvh8y" path="res://Sprites/02-King Pig/Attack (38x28).png" id="4_we61f"]
 [ext_resource type="Texture2D" uid="uid://ds6jenjxuruin" path="res://Sprites/02-King Pig/Dead (38x28).png" id="5_dm3vo"]
 [ext_resource type="Texture2D" uid="uid://bmt445abwowyi" path="res://Sprites/02-King Pig/Fall (38x28).png" id="6_30oal"]
@@ -22,10 +22,12 @@
 [ext_resource type="Script" path="res://addons/split_ss/States/public/HitState.gd" id="19_wyp0j"]
 [ext_resource type="Script" path="res://addons/split_ss/States/public/IdleState.gd" id="20_vgd1w"]
 [ext_resource type="Script" path="res://addons/split_ss/States/public/JumpState.gd" id="21_hclcd"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/RunState.gd" id="22_jwlo5"]
+[ext_resource type="Script" path="res://addons/split_ss/States/player/RunState.gd" id="23_qbmlh"]
 
 [sub_resource type="Resource" id="Resource_hlo0m"]
 script = ExtResource("2_dy7ph")
+speed = 0
+jump = 0
 hp = 100
 damage = 20
 
@@ -537,7 +539,9 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_sdgrw")
+mustAttack = null
 attributes = SubResource("Resource_hlo0m")
+isHit = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -581,9 +585,6 @@ libraries = {
 [node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("_initial_state")]
 script = ExtResource("13_w8ufu")
 _initial_state = NodePath("IdleState")
-addTrans = null
-new_child = null
-submit = null
 
 [node name="AttackState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
 script = ExtResource("14_arp1f")
@@ -637,9 +638,8 @@ _operator = 3
 _value_type = 2
 _value = "true"
 
-[node name="IdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
+[node name="IdleState" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("20_vgd1w")
-new_child = NodePath("../RunState")
 
 [node name="ToAttackState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
@@ -680,7 +680,7 @@ _value = "0.0"
 
 [node name="ToRunState" type="Node" parent="FiniteStateMachine/IdleState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
-target_state = NodePath("../../RunState")
+target_state = NodePath("../../PlayerRunState")
 _variable_name = "direction"
 _operator = 3
 _value = "0"
@@ -697,18 +697,17 @@ _operator = 2
 _value_type = 1
 _value = "0.0"
 
-[node name="RunState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("new_child")]
-script = ExtResource("22_jwlo5")
-new_child = NodePath("../IdleState")
+[node name="PlayerRunState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("23_qbmlh")
 
-[node name="ToIdleState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+[node name="ToIdleState" type="Node" parent="FiniteStateMachine/PlayerRunState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
 target_state = NodePath("../../IdleState")
 _variable_name = "direction"
 _operator = 1
 _value = "0"
 
-[node name="ToAttackState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+[node name="ToAttackState" type="Node" parent="FiniteStateMachine/PlayerRunState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
 target_state = NodePath("../../AttackState")
 _variable_name = "mustAttack"
@@ -716,13 +715,13 @@ _operator = 1
 _value_type = 2
 _value = "true"
 
-[node name="ToDeadState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+[node name="ToDeadState" type="Node" parent="FiniteStateMachine/PlayerRunState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
 target_state = NodePath("../../DeadState")
 _variable_name = "hp"
 _value = "0"
 
-[node name="ToFallState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+[node name="ToFallState" type="Node" parent="FiniteStateMachine/PlayerRunState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
 target_state = NodePath("../../FallState")
 _variable_name = "velocityY"
@@ -730,7 +729,7 @@ _operator = 2
 _value_type = 1
 _value = "0.0"
 
-[node name="ToHitState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+[node name="ToHitState" type="Node" parent="FiniteStateMachine/PlayerRunState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
 target_state = NodePath("../../HitState")
 _variable_name = "isHit"
@@ -738,7 +737,7 @@ _operator = 1
 _value_type = 2
 _value = "true"
 
-[node name="ToJumpState" type="Node" parent="FiniteStateMachine/RunState" node_paths=PackedStringArray("target_state")]
+[node name="ToJumpState" type="Node" parent="FiniteStateMachine/PlayerRunState" node_paths=PackedStringArray("target_state")]
 script = ExtResource("17_4vk1e")
 target_state = NodePath("../../JumpState")
 _variable_name = "velocityY"

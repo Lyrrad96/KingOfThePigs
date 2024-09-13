@@ -1,11 +1,166 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkgs1xahkglgb"]
+[gd_scene load_steps=22 format=3 uid="uid://dkgs1xahkglgb"]
 
 [ext_resource type="Script" path="res://Scenes/weapons/cannon.gd" id="1_uodv0"]
 [ext_resource type="Script" path="res://addons/split_ss/AutoAnimatedSprite2D.gd" id="2_xfr4r"]
 [ext_resource type="PackedScene" uid="uid://nrsysmn67n01" path="res://Scenes/world/trajectory.tscn" id="3_cct1d"]
+[ext_resource type="Texture2D" uid="uid://dlnmxv6q8m0sf" path="res://Sprites/10-Cannon/Cannon Ball.png" id="3_tdce7"]
+[ext_resource type="Texture2D" uid="uid://jgqkj43qoglr" path="res://Sprites/10-Cannon/Idle.png" id="4_gb74y"]
 [ext_resource type="PackedScene" uid="uid://c2padck8uc74a" path="res://Scenes/weapons/cannonball.tscn" id="4_l1qrg"]
+[ext_resource type="Texture2D" uid="uid://cs0fl417hwygk" path="res://Sprites/10-Cannon/Shoot (44x28).png" id="5_ci8t3"]
+[ext_resource type="Script" path="res://addons/fsm-godot/scripts/finite_state_machine.gd" id="8_wv1jp"]
+[ext_resource type="Script" path="res://addons/split_ss/States/10-Cannon/CannonBallState.gd" id="9_of4ww"]
+[ext_resource type="Script" path="res://addons/split_ss/States/10-Cannon/ShootState.gd" id="10_w2ysb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iayq8"]
+atlas = ExtResource("3_tdce7")
+region = Rect2(0, 0, 44, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d151e"]
+atlas = ExtResource("4_gb74y")
+region = Rect2(0, 0, 44, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjeh4"]
+atlas = ExtResource("5_ci8t3")
+region = Rect2(0, 0, 44, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7vfy"]
+atlas = ExtResource("5_ci8t3")
+region = Rect2(44, 0, 44, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmgce"]
+atlas = ExtResource("5_ci8t3")
+region = Rect2(88, 0, 44, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1tu4"]
+atlas = ExtResource("5_ci8t3")
+region = Rect2(132, 0, 44, 28)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gd2bo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iayq8")
+}],
+"loop": true,
+"name": &"CannonBall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d151e")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjeh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7vfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmgce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1tu4")
+}],
+"loop": true,
+"name": &"Shoot",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_a6hqe"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["CannonBall"]
+}
+
+[sub_resource type="Animation" id="Animation_4qj52"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Idle"]
+}
+
+[sub_resource type="Animation" id="Animation_vwgg4"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AutoAnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AutoAnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Shoot"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qxnjn"]
+_data = {
+"CannonBall": SubResource("Animation_a6hqe"),
+"Idle": SubResource("Animation_4qj52"),
+"Shoot": SubResource("Animation_vwgg4")
+}
 
 [node name="Cannon" type="Node2D"]
 script = ExtResource("1_uodv0")
@@ -14,8 +169,25 @@ script = ExtResource("1_uodv0")
 
 [node name="AutoAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
+texture_filter = 1
+position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_gd2bo")
 script = ExtResource("2_xfr4r")
 sprite_folder = "res://Sprites/10-Cannon"
+frame_size = Vector2(44, 28)
 
 [node name="Trajectory" parent="." instance=ExtResource("3_cct1d")]
+
+[node name="FiniteStateMachine" type="Node" parent="."]
+script = ExtResource("8_wv1jp")
+
+[node name="CannonBallState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("9_of4ww")
+
+[node name="ShootState" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("10_w2ysb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qxnjn")
+}

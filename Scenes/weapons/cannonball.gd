@@ -19,26 +19,13 @@ func _ready() -> void:
 	linear_velocity = initial_velocity
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-# # Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _physics_process(delta: float) -> void:
-# 	# velocity.x = speed
-# 	# velocity.y += gravity/4 * delta
 
-# 	velocity.y += gravity * delta
-# 	# velocity += Vector2.DOWN * gravity * delta
-# 	rotation = velocity.angle()
-
-# 	# move_and_collide(velocity)
-# 	move_and_slide()
-
-var flight_time = 2.0 # The time for the projectile to reach the final position
+var flight_time = 1.0 # The time for the projectile to reach the final position
 
 # Variables
-var initial_position = Vector2(-200, 0)
-var final_position = Vector2(-320, -20)
+var initial_position = Vector2(200, 0)
+var final_position = Vector2(320, -10)
 var initial_velocity = Vector2.ZERO
-
-	
 
 # Function to calculate the initial velocity needed to reach the final point
 func calculate_initial_velocity(p0: Vector2, pf: Vector2, t: float) -> Vector2:

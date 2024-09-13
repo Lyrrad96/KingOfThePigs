@@ -1,19 +1,25 @@
 extends Area2D
 
-@export var damage = 40
+var game_manager = preload("res://Scenes/world/GameManager.gd").new()
+@export var damage = 0
+@export var knock_atk = Vector2.ZERO
+@onready var animation_player = $AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$sprite.play("BombOn")
+	$AutoAnimatedSprite2D.play("BombOn")
 
-# func _on_body_entered(body: Node2D) -> void:
-# 	print_debug(body)
-# 	if body.name == "Player":
-# 		$AutoAnimatedSprite2D.play("Boooooom")
-# 		# $Timer.start()
+# func _physics_process(delta: float) -> void:
+# 	print($AutoAnimatedSprite2D.animation_looped())
+
+# 	# print(game_manager.isNthFrame($AnimationPlayer, -1))
+# 	if game_manager.isNthFrame($AnimationPlayer, -1):
+# 		queue_free()
+
+func _on_body_entered(body: Node2D) -> void:
+	print('body', body)
+enum states {ON, OFF, EXPLODE}
+@export var state = states.ON
 
 func _on_area_entered(area: Area2D) -> void:
-	print_debug(area)
-	# if body.name == "Player":
-	$sprite.play("Boooooom")
-	$damage.disabled = false
-		# $Timer.start()
+	print('area', area, state)
+	state = states.EXPLODE

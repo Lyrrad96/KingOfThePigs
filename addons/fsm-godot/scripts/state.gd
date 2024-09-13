@@ -27,29 +27,6 @@ var _transitions : Array[Transition]
 var _check_transition_timer : float = 0.0
 
 func _ready():
-	# anim_player = _par.find_children('*', 'AnimationPlayer')[0]
-	# print('_ready')
-	# # Create a new script resource
-	# var script := GDScript.new()
-	# # var script := SaveFile.new()
-	# script.source_code = """
-	# 	extends State
-
-	# 	func enter_state():
-	# 		print("Script is running on the sprite!")
-	# 	"""
-	# print(script.source_code)
-	# # # Optionally save the script to a file (uncomment the next lines if needed)
-	# # var script_path = "res://Scenes/Player/States/IdleState.gd"
-	# # ResourceSaver.save(script, script_path)
-	# # script = load(script_path)
-
-	# # Attach the script to the sprite node
-	# set_script(script)
-
-	# # Add the sprite node to the current scene
-	# add_child(object)
-
 	for child in get_children():
 		# All Children of a State should be a Transition
 		if child is Transition:
@@ -92,3 +69,9 @@ func addchild():
 	var a = AddChildNode.new()
 	a.add_child_node(Transition, self, 'Transition')
 	printt('AddChildNode', a)
+
+func isNthFrame(n):
+	if n < 0:
+		return floor(_par.animation_player.get_current_animation_position()*5) == floor(_par.animation_player.get_current_animation_length()*5 + n)
+	else:
+		return floor(_par.animation_player.get_current_animation_position()*5) == n

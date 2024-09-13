@@ -19,13 +19,14 @@ func update_sprite_frames():
 	# Add spriteframes to AnimatedSprite2D
 	if not sprite_frames:
 		sprite_frames = SpriteFrames.new()
-	
+
 	# Give path to folder with all sprites
 	var dir = DirAccess.open(sprite_folder)
 	var files = dir.get_files()
-	printt('update_sprite_frames', sprite_frames, dir, files[0].split('(')[1].split(')')[0].split('x'))
-	var dims = files[0].split('(')[1].split(')')[0].split('x')
-	frame_size = Vector2(float(dims[0]), float(dims[1]))
+	# printt('update_sprite_frames', sprite_frames, dir, files[0].find('('))
+	if files[0].find('(') != -1:
+		var dims = files[0].split('(')[1].split(')')[0].split('x')
+		frame_size = Vector2(float(dims[0]), float(dims[1]))
 	if dir:
 		dir.list_dir_begin()
 		sprite_frames.remove_animation("default")
@@ -228,10 +229,20 @@ func add_state(state):
 	var state_name = state + 'State'
 	
 	# Optionally save the script to a file (uncomment the next lines if needed)
+	var folder_path = "res://addons/split_ss/States/" + sprite_folder.split('Sprites/')[1]
+	var script_path = folder_path + '/' +state_name+".gd"
 	# var script_path = "res://addons/split_ss/States/"+ sprite_folder.split('Sprites/')[1] + '/' +state_name+".gd"
-	var script_path = "res://addons/split_ss/States/"+state_name+".gd"
+	# var script_path = "res://addons/split_ss/States/"+state_name+".gd"
 	# printt(script_path, sprite_folder, FileAccess.file_exists(script_path), sprite_folder.split('Sprites/')[1])
+
+
+
 	if not FileAccess.file_exists(script_path) or overwrite:
+
+		var dir = DirAccess.open("res://addons/split_ss/States/")
+		if not dir.dir_exists(folder_path):
+			dir.make_dir(folder_path)
+
 		var stateTemplate = FileAccess.open('res://addons/split_ss/stateTemplate.txt', FileAccess.READ)
 
 		var script := GDScript.new()
