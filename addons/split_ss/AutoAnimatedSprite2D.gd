@@ -54,8 +54,8 @@ func update_sprite_frames():
 		dir.list_dir_end()
 	self.frames = sprite_frames
 
-	add_state_machine()
-	add_animation_player()
+	# add_state_machine()
+	# add_animation_player()
 
 var fsm
 func add_state_machine():
@@ -63,6 +63,7 @@ func add_state_machine():
 	# printt('pp', get_parent().find_children("FSM"), get_parent().get_children())
 	# add_state('Jump')
 	# add_state('Attack')
+	add_animation_player()
 
 func add_animation_player():
 	var anim_play = create_child(AnimationPlayer, "AnimationPlayer")
@@ -229,7 +230,7 @@ func add_state(state):
 	var state_name = state + 'State'
 	
 	# Optionally save the script to a file (uncomment the next lines if needed)
-	var folder_path = "res://addons/split_ss/States/" + sprite_folder.split('Sprites/')[1]
+	var folder_path = "res://States/" + sprite_folder.split('Sprites/')[1]
 	var script_path = folder_path + '/' +state_name+".gd"
 	# var script_path = "res://addons/split_ss/States/"+ sprite_folder.split('Sprites/')[1] + '/' +state_name+".gd"
 	# var script_path = "res://addons/split_ss/States/"+state_name+".gd"
@@ -239,7 +240,7 @@ func add_state(state):
 
 	if not FileAccess.file_exists(script_path) or overwrite:
 
-		var dir = DirAccess.open("res://addons/split_ss/States/")
+		var dir = DirAccess.open("res://States/")
 		if not dir.dir_exists(folder_path):
 			dir.make_dir(folder_path)
 

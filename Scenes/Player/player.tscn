@@ -14,15 +14,15 @@
 [ext_resource type="PackedScene" uid="uid://mv0ph3g3w81n" path="res://Scenes/colliders/hitbox.tscn" id="12_73fgd"]
 [ext_resource type="Script" path="res://addons/split_ss/AutoAnimatedSprite2D.gd" id="12_n2dct"]
 [ext_resource type="Script" path="res://addons/fsm-godot/scripts/finite_state_machine.gd" id="13_w8ufu"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/AttackState.gd" id="14_arp1f"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/DeadState.gd" id="15_x7wbb"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/FallState.gd" id="16_nebqr"]
+[ext_resource type="Script" path="res://States/public/AttackState.gd" id="14_arp1f"]
+[ext_resource type="Script" path="res://States/public/DeadState.gd" id="15_x7wbb"]
+[ext_resource type="Script" path="res://States/public/FallState.gd" id="16_nebqr"]
 [ext_resource type="Script" path="res://addons/fsm-godot/scripts/transition.gd" id="17_4vk1e"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/GroundState.gd" id="18_3udog"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/HitState.gd" id="19_wyp0j"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/IdleState.gd" id="20_vgd1w"]
-[ext_resource type="Script" path="res://addons/split_ss/States/public/JumpState.gd" id="21_hclcd"]
-[ext_resource type="Script" path="res://addons/split_ss/States/player/RunState.gd" id="23_qbmlh"]
+[ext_resource type="Script" path="res://States/public/GroundState.gd" id="18_3udog"]
+[ext_resource type="Script" path="res://States/public/HitState.gd" id="19_wyp0j"]
+[ext_resource type="Script" path="res://States/public/IdleState.gd" id="20_vgd1w"]
+[ext_resource type="Script" path="res://States/public/JumpState.gd" id="21_hclcd"]
+[ext_resource type="Script" path="res://States/player/RunState.gd" id="23_qbmlh"]
 
 [sub_resource type="Resource" id="Resource_hlo0m"]
 script = ExtResource("2_dy7ph")
@@ -539,9 +539,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_sdgrw")
-mustAttack = null
 attributes = SubResource("Resource_hlo0m")
-isHit = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
@@ -558,6 +556,8 @@ offset_right = 20.0
 offset_bottom = -22.0
 
 [node name="Trajectory" parent="." instance=ExtResource("8_ajhsd")]
+velocity_x = "SPEED"
+velocity_y = "JUMP_VELOCITY"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 texture_filter = 1

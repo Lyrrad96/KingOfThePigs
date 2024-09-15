@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://bc1ss2dsbk1p8"]
+[gd_scene load_steps=18 format=4 uid="uid://bc1ss2dsbk1p8"]
 
 [ext_resource type="Script" path="res://Scenes/world/world.gd" id="1_8mga3"]
 [ext_resource type="Texture2D" uid="uid://bjq4a0dg7jv8r" path="res://Sprites/14-TileSets/Terrain (32x32).png" id="1_qurut"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b5i6f1jkrusmw" path="res://Scenes/signpost/signpost.tscn" id="8_7xv33"]
 [ext_resource type="Script" path="res://resources/characterStats.gd" id="9_dgsnw"]
 [ext_resource type="PackedScene" uid="uid://dkgs1xahkglgb" path="res://Scenes/weapons/cannon.tscn" id="12_obs8d"]
+[ext_resource type="Script" path="res://Scenes/world/canvas_layer_2.gd" id="13_ftjxi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1pl2d"]
 texture = ExtResource("1_qurut")
@@ -643,7 +644,7 @@ tile_map_data = PackedByteArray("AAD6/wAAAAADAAIAAAD7/wAAAAAEAAIAAAD8/wAAAAAFAAI
 tile_set = SubResource("TileSet_u8h6x")
 
 [node name="Player" parent="." instance=ExtResource("3_o2ey3")]
-position = Vector2(-306, -37)
+position = Vector2(71, 400)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
@@ -665,11 +666,18 @@ position = Vector2(118, -89)
 [node name="Box2" parent="." instance=ExtResource("5_ynvv0")]
 position = Vector2(240, -91)
 
+[node name="Cannon2" parent="." instance=ExtResource("12_obs8d")]
+position = Vector2(191, 417)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CanvasLayer2" type="Control" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("13_ftjxi")
 
 [node name="Restart" type="Button" parent="CanvasLayer/HBoxContainer"]
 texture_filter = 1
@@ -684,6 +692,10 @@ text = "K run"
 layout_mode = 2
 text = "cam"
 
+[node name="cannonb" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+text = "2"
+
 [node name="zoom" type="Button" parent="CanvasLayer/HBoxContainer"]
 layout_mode = 2
 text = "2"
@@ -694,5 +706,4 @@ text = "2"
 position = Vector2(-474, -55)
 text = "Z to attack"
 
-[node name="Cannon" parent="." instance=ExtResource("12_obs8d")]
-position = Vector2(-75, -127)
+[connection signal="shoot" from="Cannon2" to="." method="_on_cannon_2_shoot"]

@@ -56,7 +56,7 @@ func _physics_process(delta):
 		return
 
 	# label.text = str(hp)
-	
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -64,14 +64,14 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	
+
 	if Input.is_action_just_pressed("Attack"):
 		# hitbox.attack(delta)
 		mustAttack = true
 		# attack()
-	
+
 	direction = Input.get_axis("Run Left", "Run Right")
-	
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if not isHit:
@@ -79,7 +79,7 @@ func _physics_process(delta):
 			velocity.x = direction * SPEED
 
 			player_sprite.flip_h = true if direction == 1 else false
-			hitbox.scale.x = -1 if direction == 1 else 1
+			hitbox.scale.x = -direction
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 

@@ -19,22 +19,30 @@ func fields(object: Object):
 	var header = CustomEditorInspectorCategory.new("Add Animations from folder")
 
 	# Import button
-	var button := Button.new()
-	button.text = "Generate Animations"
-	button.get_minimum_size().y = 26
-	button.button_down.connect(object.update_sprite_frames)
+	var folder2spr := Button.new()
+	folder2spr.text = "Generate Animations from folder"
+	folder2spr.get_minimum_size().y = 26
+	folder2spr.button_down.connect(object.update_sprite_frames)
+
+		# Import button
+	var spr2pl := Button.new()
+	spr2pl.text = "Generate FSM"
+	spr2pl.get_minimum_size().y = 26
+	spr2pl.button_down.connect(object.add_state_machine)
 
 	var buttonstyle = StyleBoxFlat.new()
 	buttonstyle.bg_color = Color8(32, 37, 49)
-	button.set("custom_styles/normal", buttonstyle)
+	folder2spr.set("custom_styles/normal", buttonstyle)
+	spr2pl.set("custom_styles/normal", buttonstyle)
 
 	var container = VBoxContainer.new()
-	container.add_spacer(false)
+	# container.add_spacer(false)
 
 	container.add_child(header)
 	# container.add_child(node_selector)
-	container.add_spacer(false)
-	container.add_child(button)
+	# container.add_spacer(false)
+	container.add_child(folder2spr)
+	container.add_child(spr2pl)
 
 	# var exports = preload('./exports.gd').new()
 	# container.add_child(exports)

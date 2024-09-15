@@ -1,5 +1,8 @@
 extends Node
 
+
+var player: Node = null
+
 func attack_calc(defender: Node2D):
 	printt("attack_calc: ", defender)
 	defender.die()

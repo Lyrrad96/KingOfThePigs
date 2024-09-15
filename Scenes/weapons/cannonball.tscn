@@ -7,6 +7,9 @@
 radius = 7.0
 
 [node name="cannonball" type="RigidBody2D"]
+z_index = 1
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_s7rru")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,3 +19,6 @@ shape = SubResource("CircleShape2D_g0qxb")
 texture_filter = 1
 position = Vector2(-7, -5)
 texture = ExtResource("1_nrhqc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
