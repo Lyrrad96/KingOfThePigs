@@ -67,7 +67,6 @@ var buttons = [
 	},
 ]
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 
@@ -81,14 +80,14 @@ func _ready() -> void:
 	# king = GameManager.mainScene.get_node('King')
 	# cam = GameManager.mainScene.get_node('Player/Camera2D')
 
-	for button in buttons:
-		print_debug(button)
-		if button.has('val'):
-			if not GameManager.debug_data.has(button.var):
-				GameManager.save_debug(button.var, button.list[0])
-			button.val = GameManager.debug_data[button.var]
-			# get(nodes[button.var].node).text = button.val
-		get(button.var).connect("pressed", Callable(self, button.fun))
+	# for button in buttons:
+	# 	print_debug(button)
+	# 	if button.has('val'):
+	# 		if not GameManager.debug_data.has_property(button.var):
+	# 			GameManager.save_debug(button.var, button.list[0])
+	# 		button.val = GameManager.debug_data[button.var]
+	# 		# get(nodes[button.var].node).text = button.val
+	# 	get(button.var).connect("pressed", Callable(self, button.fun))
 
 	# restart.connect("pressed", get_tree().reload_current_scene)
 	# king_run.connect("pressed", king_tog)
