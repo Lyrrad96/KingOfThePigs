@@ -16,16 +16,17 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	restart.connect("pressed", get_tree().reload_current_scene)
-	king_speed.connect("pressed", set_stylebox_color)
-	camb.connect("pressed", cam_tog)
-	cannonb.connect("pressed", cannon_tog)
-	# king_speed.connect("pressed", king.toggle_speed)
-	king_speed.text = 'K run ' + str(king.ikr)
+	# restart.connect("pressed", get_tree().reload_current_scene)
+	# king_speed.connect("pressed", king_tog)
+	# camb.connect("pressed", cam_tog)
+	# cannonb.connect("pressed", cannon_tog)
+	# # king_speed.connect("pressed", king.toggle_speed)
+	# king_speed.text = 'K run ' + str(king.ikr)
 
-	zoom.connect("pressed", zoom_tog)
-	update_zoom(game_manager.debug_data['zoom'])
+	# zoom.connect("pressed", zoom_tog)
+	# update_zoom(game_manager.debug_data['zoom'])
 
+	GameManager.mainScene = $"."
 	GameManager.player = $Player
 
 	# signpost.find_child("Label", true).text = "z to attack"
@@ -59,22 +60,13 @@ func update_zoom(z):
 	cam.zoom = Vector2(z, z)
 	zoom.text = str(cam.zoom.x) + 'x'
 
-func set_stylebox_color():
+func king_tog():
 
 	king.toggle_speed()
 	king_speed.text = 'K run ' + str(king.ikr)
 
 	# printt(king.ikr, Color("#fff") if king.ikr else Color("#f41"))
 	# king_speed.add_theme_color_override("font_color", Color("#fff") if king.ikr else Color("#f41"))
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if is_instance_valid(player):
-		# if player and player.hp <= 0:
-			# player.queue_free()
-		if player:
-			king.playerCoords(player.position)
-
 
 # func _on_player_shoot(Bullet, direction, location):
 # 	var spawned_bullet = Bullet.instantiate()

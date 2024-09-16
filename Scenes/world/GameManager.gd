@@ -1,6 +1,7 @@
 extends Node
 
 
+var mainScene: Node = null
 var player: Node = null
 
 func attack_calc(defender: Node2D):

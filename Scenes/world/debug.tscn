@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://weg3yejdrduu"]
+
+[ext_resource type="Script" path="res://Scenes/world/debug.gd" id="1_q5ofd"]
+[ext_resource type="Script" path="res://Scenes/world/canvas_layer_2.gd" id="1_qq7ah"]
+
+[node name="Debug" type="CanvasLayer"]
+script = ExtResource("1_q5ofd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Ruler" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+script = ExtResource("1_qq7ah")
+
+[node name="Restart" type="Button" parent="HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Restart"
+
+[node name="kingRun" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "K run"
+
+[node name="cam" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "cam"
+
+[node name="cannonb" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "cannon"
+
+[node name="zoom" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "2"

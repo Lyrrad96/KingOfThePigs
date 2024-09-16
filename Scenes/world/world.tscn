@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://bc1ss2dsbk1p8"]
+[gd_scene load_steps=19 format=4 uid="uid://bc1ss2dsbk1p8"]
 
 [ext_resource type="Script" path="res://Scenes/world/world.gd" id="1_8mga3"]
 [ext_resource type="Texture2D" uid="uid://bjq4a0dg7jv8r" path="res://Sprites/14-TileSets/Terrain (32x32).png" id="1_qurut"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://2c0s7ovf0uqu" path="res://Scenes/pig/pig.tscn" id="7_hp7al"]
 [ext_resource type="PackedScene" uid="uid://b5i6f1jkrusmw" path="res://Scenes/signpost/signpost.tscn" id="8_7xv33"]
 [ext_resource type="Script" path="res://resources/characterStats.gd" id="9_dgsnw"]
+[ext_resource type="PackedScene" uid="uid://weg3yejdrduu" path="res://Scenes/world/debug.tscn" id="12_egii7"]
 [ext_resource type="PackedScene" uid="uid://dkgs1xahkglgb" path="res://Scenes/weapons/cannon.tscn" id="12_obs8d"]
 [ext_resource type="Script" path="res://Scenes/world/canvas_layer_2.gd" id="13_ftjxi"]
 
@@ -667,7 +668,7 @@ position = Vector2(118, -89)
 position = Vector2(240, -91)
 
 [node name="Cannon2" parent="." instance=ExtResource("12_obs8d")]
-position = Vector2(191, 417)
+position = Vector2(-54, -1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -700,10 +701,10 @@ text = "2"
 layout_mode = 2
 text = "2"
 
+[node name="Debug" parent="." instance=ExtResource("12_egii7")]
+
 [node name="Signs" type="Node" parent="."]
 
 [node name="Signpost" parent="Signs" instance=ExtResource("8_7xv33")]
 position = Vector2(-474, -55)
 text = "Z to attack"
-
-[connection signal="shoot" from="Cannon2" to="." method="_on_cannon_2_shoot"]

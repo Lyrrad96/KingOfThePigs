@@ -146,7 +146,7 @@ func chaseY():
 	else:
 		return true
 
-func toggle_speed():
+func toggle_run():
 	# king.set_meta('speed', !king.get_meta('speed'))
 	ikr = !ikr
 	speed = 60 if ikr else 0
