@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://2c0s7ovf0uqu" path="res://Scenes/pig/pig.tscn" id="7_hp7al"]
 [ext_resource type="PackedScene" uid="uid://b5i6f1jkrusmw" path="res://Scenes/signpost/signpost.tscn" id="8_7xv33"]
 [ext_resource type="Script" path="res://resources/characterStats.gd" id="9_dgsnw"]
-[ext_resource type="PackedScene" path="res://Scenes/world/debug.tscn" id="12_egii7"]
+[ext_resource type="PackedScene" uid="uid://weg3yejdrduu" path="res://Scenes/world/debug.tscn" id="12_egii7"]
 [ext_resource type="PackedScene" uid="uid://dkgs1xahkglgb" path="res://Scenes/weapons/cannon.tscn" id="12_obs8d"]
 [ext_resource type="Script" path="res://Scenes/world/canvas_layer_2.gd" id="13_ftjxi"]
 
@@ -645,7 +645,7 @@ tile_map_data = PackedByteArray("AAD6/wAAAAADAAIAAAD7/wAAAAAEAAIAAAD8/wAAAAAFAAI
 tile_set = SubResource("TileSet_u8h6x")
 
 [node name="Player" parent="." instance=ExtResource("3_o2ey3")]
-position = Vector2(-725, 326)
+position = Vector2(-527, 394)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
@@ -671,6 +671,7 @@ position = Vector2(240, -91)
 position = Vector2(-450, 395)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 offset_right = 40.0

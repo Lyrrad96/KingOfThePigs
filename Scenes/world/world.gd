@@ -52,10 +52,10 @@ func zoom_tog():
 	var arr = [1.0, 2.0, 4.0]
 	var ind = (arr.find(game_manager.debug_data['zoom'])+1)%3
 	var z = arr[ind]
-	game_manager.save_debug('zoom', z)
+	game_manager.save_debug_var('zoom', z)
 
 	update_zoom(z)
-	
+
 func update_zoom(z):
 	cam.zoom = Vector2(z, z)
 	zoom.text = str(cam.zoom.x) + 'x'

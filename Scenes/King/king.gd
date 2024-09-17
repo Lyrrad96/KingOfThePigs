@@ -25,7 +25,7 @@ var ikr = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	# game_manager.load_debug()
-	ikr = game_manager.debug_data.isKingRunning
+	ikr = game_manager.debug_data.king_run
 	speed = 60 if ikr else 0
 
 var facing_right = 1
@@ -150,4 +150,4 @@ func toggle_run():
 	# king.set_meta('speed', !king.get_meta('speed'))
 	ikr = !ikr
 	speed = 60 if ikr else 0
-	game_manager.save_debug('isKingRunning', ikr)
+	game_manager.save_debug_var('king_run', ikr)

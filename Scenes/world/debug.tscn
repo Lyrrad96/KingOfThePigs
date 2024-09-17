@@ -27,7 +27,7 @@ text = "K run"
 layout_mode = 2
 text = "cam"
 
-[node name="cannonb" type="Button" parent="HBoxContainer"]
+[node name="cannon" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 text = "cannon"
 

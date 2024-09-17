@@ -19,9 +19,9 @@ func _ready():
 
 	if not debug_data:
 		debug_data = DebugVariables.new()
-	printt(debug_data, debug_data.isKingRunning)
+	printt(debug_data, debug_data.king_run)
 
-func save_debug(key, value) -> void:
+func save_debug_var(key, value) -> void:
 	# var data := DebugVariables.new()
 	debug_data[key] = value
 	var error := ResourceSaver.save(debug_data, save_path)
