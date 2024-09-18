@@ -41,20 +41,20 @@ var buttons = [
 		'var': 'restart',
 		'fun': 'restart_tog'
 	},
-	# {
-	# 	'val': true,
-	# 	'list': [true, false],
-	# 	'var': 'king_run',
-	# 	'fun': 'king_run_tog',
-	# 	'nodes': ['king']
-	# },
-	# {
-	# 	'val': 'player',
-	# 	'list': ['player', 'king'],
-	# 	'var': 'cam',
-	# 	'fun': 'cam_tog',
-	# 	'nodes': ['player', 'king']
-	# },
+	{
+		'val': true,
+		'list': [true, false],
+		'var': 'king_run',
+		'fun': 'king_run_tog',
+		'nodes': ['king']
+	},
+	{
+		'val': 'player',
+		'list': ['player', 'king'],
+		'var': 'cam',
+		'fun': 'cam_tog',
+		'nodes': ['player', 'king', 'cam']
+	},
 	{
 		'val': Vector2.ZERO,
 		'list': [Vector2(-54, 0), Vector2(191, 417), Vector2(191, 370)],
@@ -62,13 +62,13 @@ var buttons = [
 		'fun': 'cannon_tog',
 		'nodes': ['cannon']
 	},
-	# {
-	# 	'val': 1.0,
-	# 	'list': [1.0, 2.0, 4.0],
-	# 	'var': 'zoom',
-	# 	'fun': 'zoom_tog',
-	# 	'nodes': []
-	# },
+	{
+		'val': 1.0,
+		'list': [1.0, 2.0, 4.0],
+		'var': 'zoom',
+		'fun': 'zoom_tog',
+		'nodes': []
+	},
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -87,11 +87,11 @@ func _ready() -> void:
 	for button in buttons:
 		print_debug(button)
 		if button.has('val'):
-			if not GameManager.debug_data.get(button.var):
-				GameManager.create_debug_var(button.var, button.list[0])
+			# if not GameManager.debug_data.get(button.var):
+			# 	GameManager.create_debug_var(button.var, button.list[0])
 			button.val = GameManager.debug_data[button.var]
 			# get(nodes[button.var].node).text = button.val
-		printt(get(button.var), (button.var))
+		printt(get(button.var), (button.var), button)
 		get(button.var).connect("pressed", Callable(self, button.fun).bind(button))
 
 	# restart.connect("pressed", get_tree().reload_current_scene)
@@ -104,46 +104,44 @@ func _ready() -> void:
 	# zoom.connect("pressed", zoom_tog)
 	# update_zoom(GameManager.debug_data['zoom'])
 
-func cannon_tog(key, ind, list, node_list):
-	printt(key, ind, list, node_list)
-	node_list[0].position = list[(ind+1)%list.length]
-	GameManager.save_debug_var(key, node_list[0].position)
+func restart_tog():
+	get_tree().reload_current_scene()
+
+func cannon_tog(button):
+	printt(button, nodes[button.nodes[0]].node.position, button.list, button.val, button.list.find(Vector2(-54, 0)), button.list[(button.list.find(button.val)+1)%len(button.list)])
+	button.val = button.list[(button.list.find(button.val)+1)%len(button.list)]
+	nodes[button.nodes[0]].node.position = button.val
+	GameManager.save_debug_var(button.var, button.val)
 
 var cam_f = 'player'
-func cam_tog(key, ind, list, node_list):
-	var player = nodes.player.node
-	var king = nodes.king.node
-	var active = GameManager.debug_data[key]
+func cam_tog(button):
 
-	node_list[list[ind]].node.remove_child(node_list[2])
-	node_list[list[(ind+1)%2]].node.remove_child(node_list[2])
-
-	printt(player, king)
-	if cam_f == 'player':
-		player.remove_child(cam)
-		king.add_child(cam)
-		cam_f = 'king'
-		printt('player', player, king)
+	if button.val == 'player':
+		nodes['player'].node.remove_child(nodes['cam'].node)
+		nodes['king'].node.add_child(nodes['cam'].node)
+		button.val = 'king'
 	else:
-		king.remove_child(cam)
-		player.add_child(cam)
-		cam_f = 'player'
-		printt('king', player, king)
+		nodes['king'].node.remove_child(nodes['cam'].node)
+		nodes['player'].node.add_child(nodes['cam'].node)
+		button.val = 'player'
 
-func zoom_tog(key, ind, list, node_list):
-	# cam.zoom = Vector2(2, 2) if cam.zoom == Vector2(2, 2) else Vector2(4, 4)
-	# var arr = [1.0, 2.0, 4.0]
-	# var ind = (arr.find(GameManager.debug_data['zoom'])+1)%3
-	var z = list[ind]
-	GameManager.save_debug_var('zoom', z)
+	GameManager.save_debug_var(button.var, button.val)
 
-	update_zoom(z)
+
+func zoom_tog(button):
+	button.val = increment(button.list, button.val)
+	GameManager.save_debug_var(button.var, button.val)
+
+	update_zoom(button.val)
 
 func update_zoom(z):
-	cam.zoom = Vector2(z, z)
-	zoom.text = str(cam.zoom.x) + 'x'
+	nodes['cam'].node.zoom = Vector2(z, z)
+	zoom.text = str(nodes['cam'].node.zoom.x) + 'x'
 
-func king_tog(king):
+func king_run_tog(king):
 	print_debug(king)
 	king.toggle_run()
 	king_run.text = 'K run ' + str(king.ikr)
+
+func increment(list, val):
+	return list[(list.find(val)+1)%len(list)]

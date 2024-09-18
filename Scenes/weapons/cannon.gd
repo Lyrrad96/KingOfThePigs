@@ -42,7 +42,8 @@ func _input(event):
 			cannon_body.rotation -= deg_to_rad(1)
 
 # # Called every frame. 'delta' is the elapsed time since the previous frame.
-# func _process(delta: float) -> void:
+func _process(delta: float) -> void:
+	launch_angle = cannon_body.rotation
 # 	look_at(get_global_mouse_position())
 # 	# print($Trajectory)
 # 	# $Trajectory.update_trajectory(delta)
@@ -126,22 +127,19 @@ func compute_initial_speed(distance: Vector2, time: float) -> Vector2:
 	var theta = deg_to_rad(launch_angle)
 
 	# Check if the vertical displacement affects the path
-	var under_sqrt = (abs(distance.x) * tan(launch_angle) - distance.y)
+	# var under_sqrt = (abs(distance.x) * tan(launch_angle) - distance.y)
 
-	# Ensure under_sqrt doesn't go negative (to avoid math errors)
-	printt(under_sqrt, abs(distance.x), tan(launch_angle), distance.y)
-	if under_sqrt <= 0:
-		print("Invalid conditions for the projectile to reach the target")
-		return Vector2.ZERO
-	
+	# # Ensure under_sqrt doesn't go negative (to avoid math errors)
+	# printt(launch_angle, under_sqrt, abs(distance.x), tan(launch_angle), distance.y)
+	# if under_sqrt <= 0:
+	# 	print("Invalid conditions for the projectile to reach the target")
+	# 	return Vector2.ZERO
 
 	# Calculate the required initial velocity to hit the target
-	# var initial_velocity = sqrt((abs(distance.x) * gravity) / sin(2 * theta))
-	var initial_velocity = abs(distance.x) / cos(launch_angle) * sqrt(gravity / (2 * under_sqrt))
+	var initial_velocity = sqrt((abs(distance.x) * gravity) / sin(2 * theta))
+	# var initial_velocity = abs(distance.x) / cos(launch_angle) * sqrt(gravity / (2 * under_sqrt))
 
 	print_debug(initial_velocity, gravity)
-
-
 
 	# Convert the velocity into a 2D vector (velocity components)
 	velocity_x = initial_velocity if distance.x >= 0 else -initial_velocity * cos(theta)
